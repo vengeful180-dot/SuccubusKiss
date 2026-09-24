@@ -10,7 +10,9 @@ Open `index.html` in a browser, tap **Summon**, and turn your sound on.
 - **3–5.4 s:** She smirks, leans in toward the camera, and closes her eyes.
 - **5.4 s:** The kiss. Her lips hit the "glass" and leave a lipstick print, with a flash and a burst of hearts.
 - **6.5–10 s:** She pulls back, winks, and blows a glowing heart at you.
-- **After 10 s:** She stays in an idle loop. She breathes and blinks, her hair and wings sway, and her eyes follow your cursor. Every few seconds she does a random gesture: a wink, a wing flap, a head tilt, a blown heart, or a glance away.
+- **After 10 s:** She stays in an idle loop. She breathes, blinks and hovers in time with her wing beats, her hair and wings sway, and her eyes follow your cursor. Every few seconds she does a random gesture: a wink, a wing flap, a playful shimmy, a head tilt, a blown heart, or a glance away.
+
+Her bust is driven by a small spring simulation, so it bounces and settles naturally when she moves, flaps or shimmies.
 
 Tap anywhere for another kiss. The buttons in the top right mute the sound or replay from the start.
 
