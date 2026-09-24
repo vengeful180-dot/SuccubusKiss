@@ -188,7 +188,7 @@
         <stop offset="0" stop-color="#f4d0d4"/><stop offset=".55" stop-color="#f6d6d8"/><stop offset="1" stop-color="#eec3cb"/>
       </linearGradient>
       <linearGradient id="gHand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#dcaabb"/><stop offset=".45" stop-color="#f3d0d5"/><stop offset="1" stop-color="#e9bfc9"/></linearGradient>
-      <linearGradient id="gTongue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c83a60"/><stop offset=".55" stop-color="#ec6f90"/><stop offset="1" stop-color="#f58aa6"/></linearGradient>
+      <radialGradient id="gTongue" cx=".5" cy=".62" r=".7"><stop offset="0" stop-color="#ff9fb8"/><stop offset=".5" stop-color="#ee7093"/><stop offset="1" stop-color="#b8345a"/></radialGradient>
       <radialGradient id="gSolePad"><stop offset="0" stop-color="#f09aae" stop-opacity=".8"/><stop offset="1" stop-color="#f09aae" stop-opacity="0"/></radialGradient>
       <linearGradient id="gVelvet" x1="0" y1="1840" x2="0" y2="2250" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#8e1535"/><stop offset=".25" stop-color="#6a0d27"/><stop offset="1" stop-color="#3c0616"/>
@@ -722,9 +722,10 @@ function buildMouth() {
   mouthEls.lower = el('path', { fill: 'url(#gLipL)' }, g);
   mouthEls.g1 = el('ellipse', { rx: 9, ry: 3, fill: 'url(#gSoftW)', opacity: .8 }, g);
   mouthEls.tongueG = el('g', { style: 'display:none' }, g);
-  mouthEls.tongue = el('path', { fill: 'url(#gTongue)', stroke: '#9a2446', 'stroke-width': .8, 'stroke-opacity': .7 }, mouthEls.tongueG);
-  mouthEls.groove = el('path', { fill: 'none', stroke: '#a92c50', 'stroke-width': 1.1, 'stroke-linecap': 'round', opacity: .55 }, mouthEls.tongueG);
-  mouthEls.tongueHi = el('ellipse', { rx: 3.2, ry: 1.8, fill: '#fff', opacity: .45 }, mouthEls.tongueG);
+  mouthEls.tongueSh = el('ellipse', { fill: '#5a0420', opacity: .35 }, mouthEls.tongueG);
+  mouthEls.tongue = el('path', { fill: 'url(#gTongue)', stroke: '#9a2446', 'stroke-width': .7, 'stroke-opacity': .6 }, mouthEls.tongueG);
+  mouthEls.groove = el('path', { fill: 'none', stroke: '#b23058', 'stroke-width': 1.2, 'stroke-linecap': 'round', opacity: .4 }, mouthEls.tongueG);
+  mouthEls.tongueHi = el('ellipse', { rx: 3.4, ry: 1.7, fill: '#fff', opacity: .5 }, mouthEls.tongueG);
   mouthEls.upper = el('path', { fill: 'url(#gLipU)' }, g);
   mouthEls.creases = el('path', { fill: 'none', stroke: '#6a0626', 'stroke-width': .7, 'stroke-linecap': 'round' }, g);
   mouthEls.line = el('path', { fill: 'none', stroke: '#48031a', 'stroke-width': 1.3, 'stroke-linecap': 'round' }, g);
@@ -733,7 +734,7 @@ function buildMouth() {
 }
 function updMouth(m) {
   const tg = m.tongue || 0, tgx = m.tongueX || 0;
-  m.open = Math.max(m.open, .32 * tg);
+  m.open = Math.max(m.open, .4 * tg);
   const def = (x, y, layer) => {
     const g = m.open * Math.max(0, 1 - (x / MW) ** 2);
     if (layer === 'lo') y += g * 8.5;
@@ -772,14 +773,26 @@ function updMouth(m) {
   mouthEls.g2.setAttribute('cx', g2[0]); mouthEls.g2.setAttribute('cy', g2[1]);
   const sh = pos(def(0, 22, 'lo'));
   mouthEls.shadow.setAttribute('cx', sh[0]); mouthEls.shadow.setAttribute('cy', sh[1]);
-  // tongue: base hidden behind the upper lip, tip slides out over the lower lip (tgx sweeps it corner to corner)
+  // tongue: its root stays behind the upper lip; the tip rides on the lower lip (tgx walks it corner to corner, and the
+  // root follows sideways so nothing stretches). Past tg ~.6 the tip hangs over the lower lip for a proper tongue-out.
   if (tg < .02) { mouthEls.tongueG.style.display = 'none'; return; }
   mouthEls.tongueG.style.display = '';
-  const bx = MX, by = MY + 1 + m.open * 3, w = 8 + 3.5 * tg;
-  const tx = MX + tgx * 15 * (1 - .42 * m.pucker), ty = by + 5 + 14 * tg - Math.abs(tgx) * 3;
-  mouthEls.tongue.setAttribute('d', `M${P2([bx - w, by - 3])}C${P2([bx - w, by + 6])} ${P2([tx - w * .9, ty - 7])} ${P2([tx - w * .85, ty])}C${P2([tx - w * .8, ty + w * .95])} ${P2([tx + w * .8, ty + w * .95])} ${P2([tx + w * .85, ty])}C${P2([tx + w * .9, ty - 7])} ${P2([bx + w, by + 6])} ${P2([bx + w, by - 3])}Z`);
-  mouthEls.groove.setAttribute('d', `M${P2([bx, by + 2])}Q${P2([(bx + tx) / 2, (by + ty) / 2 + 2])} ${P2([tx, ty + w * .25])}`);
-  mouthEls.tongueHi.setAttribute('cx', F(tx - w * .35)); mouthEls.tongueHi.setAttribute('cy', F(ty + 1.5));
+  const lx = tgx * 15 + Math.sin(T * 7.3) * 1.1 * tg;
+  const top = pos(def(lx, 1.8, 'lo')), bot = pos(def(lx, 17 - 8 * (lx / MW) ** 2, 'lo'));
+  const f = .38 + .5 * tg, wig = Math.sin(T * 9.1) * .8 * tg;
+  const tip = [lerp(top[0], bot[0], f), lerp(top[1], bot[1], f) + wig];
+  const base = [MX + lx * .55, MY - 1 + m.open * 1.2];
+  const w = 7.6 + 5.4 * tg, r = w * (.86 + .16 * tg);
+  let dx = tip[0] - base[0], dy = tip[1] - base[1]; const len = Math.hypot(dx, dy) || 1; dx /= len; dy /= len;
+  const nx = -dy, ny = dx, Q = (p, a, b) => P2([p[0] + nx * a + dx * b, p[1] + ny * a + dy * b]);
+  mouthEls.tongue.setAttribute('d', `M${Q(base, w, -3)}C${Q(base, w * 1.04, len * .45)} ${Q(tip, r * 1.08, -len * .3)} ${Q(tip, r, 0)}` +
+    `C${Q(tip, r, r * 1.25)} ${Q(tip, -r, r * 1.25)} ${Q(tip, -r, 0)}C${Q(tip, -r * 1.08, -len * .3)} ${Q(base, -w * 1.04, len * .45)} ${Q(base, -w, -3)}Z`);
+  mouthEls.groove.setAttribute('d', `M${Q(base, 0, 2)}Q${Q(base, .8, len * .55)} ${Q(tip, 0, -r * .15)}`);
+  mouthEls.groove.setAttribute('opacity', F(.4 * smooth(.2, .7, tg) * 100) / 100);
+  const hi = [tip[0] - nx * r * .35 - dx * r * .2, tip[1] - ny * r * .35 - dy * r * .2];
+  mouthEls.tongueHi.setAttribute('cx', F(hi[0])); mouthEls.tongueHi.setAttribute('cy', F(hi[1]));
+  mouthEls.tongueSh.setAttribute('cx', F(tip[0] + 1)); mouthEls.tongueSh.setAttribute('cy', F(tip[1] + r * .7));
+  mouthEls.tongueSh.setAttribute('rx', F(r * 1.05)); mouthEls.tongueSh.setAttribute('ry', F(r * .45));
 }
 
 /* ---------------- wings & tail ---------------- */
@@ -1175,7 +1188,7 @@ const TL = {
   smile:   [[0, 0], [2.8, 0], [3.6, .35], [4.4, .15], [4.8, 0], [6.2, .15], [6.75, .85, 'out'], [7.8, .55], [8.1, 0], [9.0, 0], [9.8, .42]],
   smirk:   [[0, 0], [3.1, 0], [3.7, .55], [4.5, .15], [4.8, 0], [9.4, 0], [10.2, .3]],
   pucker:  [[0, 0], [4.35, 0], [5.15, 1], [5.5, 1], [5.95, .35, 'out'], [6.4, 0], [8.0, 0], [8.3, .85], [8.75, .85], [9.05, 0]],
-  open:    [[0, 0], [4.9, 0], [5.2, .22], [5.38, 0, 'in'], [5.62, .38, 'out'], [6.1, .06], [6.5, 0], [6.75, .12], [7.4, 0], [8.45, 0], [8.55, .3, 'out'], [8.9, 0]],
+  open:    [[0, 0], [4.9, 0], [5.2, .22], [5.38, 0, 'in'], [5.62, .38, 'out'], [6.1, .06], [6.5, 0], [6.75, .12], [7.4, 0], [8.45, 0], [8.55, .3, 'out'], [8.9, 0], [9.12, 0], [9.3, .42], [10.34, .42], [10.55, 0]],
   browL:   [[0, 0], [3.2, 0], [3.7, .9], [4.6, .2], [5.0, .5], [5.9, .5], [6.5, 0], [9, 0], [9.8, .2]],
   browR:   [[0, 0], [3.2, 0], [3.7, -.2], [4.6, .2], [5.0, .5], [5.9, .5], [6.5, 0], [6.8, 0], [7.0, -.8], [7.4, -.8], [7.7, 0], [9, 0], [9.8, .1]],
   blush:   [[0, .25], [4.4, .3], [5.4, 1], [7.5, .7], [10, .5]],
@@ -1184,8 +1197,8 @@ const TL = {
   zoom:    [[0, 1], [3.0, 1], [4.3, 1.08], [5.4, ZM, 'lean'], [5.9, ZM2, 'lin'], [7.1, 1.03, 'io3'], [10, 1]],
   bodyY:   [[0, 16], [1.3, 16], [2.9, 0, 'in'], [3.12, -3, 'out'], [3.4, 0], [9.1, 0], [9.3, -8, 'out'], [9.5, 0, 'in'], [9.72, -5, 'out'], [9.95, 0, 'in']],
   sway:    [[0, 0]],
-  tongue:  [[0, 0], [9.12, 0], [9.32, .55, 'out'], [10.35, .55], [10.65, 0]],
-  tongueX: [[0, -1], [9.32, -1], [10.25, 1], [10.7, 0]],
+  tongue:  [[0, 0], [9.14, 0], [9.36, .45, 'out'], [10.3, .45], [10.5, 0, 'in']],
+  tongueX: [[0, -.85], [9.42, -.85], [10.22, .85], [10.7, 0]],
   wide: [[0, 0]], footCam: [[0, 0]], leg: [[0, 0]], toe: [[0, 0]], boop: [[0, 0]],
   wingS:   [[0, 0], [1.35, 0], [2.5, 1, 'outBack']],
   wingSc:  [[0, .3], [1.35, .3], [2.2, 1, 'outBack']],
@@ -1215,11 +1228,12 @@ const GEST = {
     headRot: [[0, 0], [1.6, 6], [5.2, 6], [6.2, -4], [8.2, -4], [9.2, 5], [10, 5], [11, 0]],
     bodyY:   [[0, 0], [.95, 0], [1.12, 4, 'out'], [1.34, 0, 'in']],
     gazeY:   [[0, 0], [2.8, 0], [3.2, .12], [9.6, .12], [10.2, 0]],
-    tongue:  [[0, 0], [6.4, 0], [6.6, .55, 'out'], [7.5, .55], [7.8, 0]],
-    tongueX: [[0, 0], [6.4, -1], [7.45, 1], [7.9, 0]],
+    open:    [[0, 0], [6.42, 0], [6.58, .42], [7.55, .42], [7.76, 0]],
+    tongue:  [[0, 0], [6.46, 0], [6.66, .45, 'out'], [7.48, .45], [7.68, 0, 'in']],
+    tongueX: [[0, 0], [6.46, -.85], [7.42, .85], [7.9, 0]],
   }, fx: [[.05, 'zoomOut'], [.3, 'lift'], [2.9, 'showFeet'], [4.4, 'tease'], [5.3, 'boop'], [6.6, 'lickQuiet'], [7.9, 'giggle'], [8.4, 'boop'], [9.4, 'tease2'], [10.3, 'zoomIn'], [13.5, 'land']], end: 'feetDone' },
-  lick:  { dur: 2.3, tr: { tongue: [[0, 0], [.25, .55, 'out'], [1.65, .55], [1.95, 0]], tongueX: [[0, -1], [.3, -1], [1.55, 1], [2.0, 0]], eyeMul: [[0, 1], [.3, .6], [1.9, .6], [2.3, 1]], smile: [[0, 0], [.3, .2], [2, .3], [2.3, 0]], headRot: [[0, 0], [.4, -3], [2.3, 0]], blush: [[0, 0], [.4, .25], [2.3, 0]] }, fx: [[.25, 'lick']] },
-  bleh:  { dur: 1.9, tr: { tongue: [[0, 0], [.2, 1, 'out'], [1.25, 1], [1.55, 0]], tongueX: [[0, 0], [.45, .22], [.75, -.22], [1.05, .18], [1.3, 0]], eyeRMul: [[0, 1], [.15, 0, 'in'], [1.3, 0], [1.55, 1, 'out']], smile: [[0, 0], [.2, .55], [1.5, .55], [1.9, 0]], browR: [[0, 0], [.15, -.7], [1.3, -.7], [1.55, 0]], headRot: [[0, 0], [.25, 5], [1.6, 0]] }, fx: [[.18, 'bleh']] },
+  lick:  { dur: 2.4, tr: { open: [[0, 0], [.18, .42], [1.72, .42], [1.95, 0]], tongue: [[0, 0], [.26, .45, 'out'], [1.62, .45], [1.84, 0, 'in']], tongueX: [[0, -.85], [.34, -.85], [1.5, .85], [1.95, .85], [2.2, 0]], eyeMul: [[0, 1], [.3, .6], [1.9, .6], [2.3, 1]], smile: [[0, 0], [.3, .2], [2, .3], [2.3, 0]], headRot: [[0, 0], [.4, -3], [2.3, 0]], blush: [[0, 0], [.4, .25], [2.3, 0]] }, fx: [[.25, 'lick']] },
+  bleh:  { dur: 1.9, tr: { open: [[0, 0], [.14, .62], [1.3, .62], [1.5, 0]], tongue: [[0, 0], [.22, 1, 'out'], [1.24, 1], [1.42, 0, 'in']], tongueX: [[0, 0], [.45, .12], [.75, -.12], [1.05, .1], [1.3, 0]], eyeRMul: [[0, 1], [.15, 0, 'in'], [1.3, 0], [1.55, 1, 'out']], smile: [[0, 0], [.2, .55], [1.5, .55], [1.9, 0]], browR: [[0, 0], [.15, -.7], [1.3, -.7], [1.55, 0]], headRot: [[0, 0], [.25, 5], [1.6, 0]] }, fx: [[.18, 'bleh']] },
   purr:  { dur: 3.0, tr: { eyeMul: [[0, 1], [.4, .62], [2.4, .62], [3, 1]], smirk: [[0, 0], [.4, .55], [2.4, .55], [3, 0]], headRot: [[0, 0], [.5, -5], [2.4, -5], [3, 0]], browL: [[0, 0], [.4, .8], [2.4, .8], [3, 0]], blush: [[0, 0], [.5, .3], [2.4, .3], [3, 0]], gazeY: [[0, 0], [.4, .08], [2.4, .08], [3, 0]] }, fx: [[.3, 'purr']] },
   look:  { dur: 3.6, tr: { gazeX: [[0, 0], [.4, -.75], [1.7, -.75], [2.1, .1], [3.6, 0]], gazeY: [[0, 0], [.4, .25], [1.7, .25], [2.1, 0]], headRot: [[0, 0], [.6, -4], [1.9, -4], [2.5, 0]], smile: [[0, 0], [1.9, 0], [2.4, .5], [3.6, 0]] } },
 };
