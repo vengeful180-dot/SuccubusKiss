@@ -6,7 +6,7 @@
 <title>Lilith's Kiss</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg-deep:#06010a;
@@ -56,6 +56,14 @@
     transition:background .3s,border-color .3s}
   #hud button:hover{background:rgba(90,10,60,.55);border-color:rgba(255,140,190,.7)}
   #hud svg{width:18px;height:18px}
+  #bubble{position:absolute;left:0;top:0;z-index:4;pointer-events:none;max-width:min(62vw,300px);padding:10px 16px 11px;border-radius:18px;
+    font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(16px,2.3vw,21px);line-height:1.2;color:#ffe3ef;
+    background:rgba(34,4,28,.78);border:1px solid rgba(255,120,180,.55);box-shadow:0 0 22px rgba(255,61,139,.35);
+    opacity:0;transform:translate(-50%,-100%) scale(.85);transition:opacity .35s ease,transform .35s cubic-bezier(.2,1.4,.4,1);white-space:nowrap}
+  #bubble.show{opacity:1;transform:translate(-50%,-100%) scale(1)}
+  #bubble::after{content:'';position:absolute;left:22px;bottom:-8px;width:14px;height:14px;background:rgba(34,4,28,.78);
+    border-right:1px solid rgba(255,120,180,.55);border-bottom:1px solid rgba(255,120,180,.55);transform:rotate(45deg)}
+  .ear{cursor:grab}
   #intro{position:fixed;inset:0;z-index:20;display:grid;place-items:center;cursor:pointer;
     background:radial-gradient(ellipse at 50% 45%, #25061f 0%, #0a010d 62%, #040007 100%);
     transition:opacity 1.4s ease,visibility 1.4s}
@@ -162,6 +170,40 @@
         <stop offset=".45" stop-color="#20071c"/>
         <stop offset="1" stop-color="#0b020a"/>
       </linearGradient>
+      <linearGradient id="gSkirt" x1="140" y1="0" x2="660" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#12030f"/><stop offset=".12" stop-color="#2e0b2a"/><stop offset=".22" stop-color="#150411"/>
+        <stop offset=".34" stop-color="#3a1236"/><stop offset=".46" stop-color="#170513"/><stop offset=".58" stop-color="#36102f"/>
+        <stop offset=".7" stop-color="#160513"/><stop offset=".82" stop-color="#2e0b2a"/><stop offset="1" stop-color="#110310"/>
+      </linearGradient>
+      <linearGradient id="gSkirtUnder" x1="0" y1="1280" x2="0" y2="1460" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#6e0928"/><stop offset="1" stop-color="#c0194f"/>
+      </linearGradient>
+      <linearGradient id="gArmL" x1="150" y1="0" x2="272" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#bf7f9a"/><stop offset=".35" stop-color="#ebc1ca"/><stop offset=".7" stop-color="#f3d0d4"/><stop offset="1" stop-color="#d9a2b6"/>
+      </linearGradient>
+      <linearGradient id="gArmR" x1="650" y1="0" x2="528" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#bf7f9a"/><stop offset=".35" stop-color="#ebc1ca"/><stop offset=".7" stop-color="#f3d0d4"/><stop offset="1" stop-color="#d9a2b6"/>
+      </linearGradient>
+      <linearGradient id="gLeg" x1="0" y1="1200" x2="0" y2="2270" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#f4d0d4"/><stop offset=".55" stop-color="#f6d6d8"/><stop offset="1" stop-color="#eec3cb"/>
+      </linearGradient>
+      <radialGradient id="gSolePad"><stop offset="0" stop-color="#f09aae" stop-opacity=".8"/><stop offset="1" stop-color="#f09aae" stop-opacity="0"/></radialGradient>
+      <linearGradient id="gVelvet" x1="0" y1="1840" x2="0" y2="2250" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#8e1535"/><stop offset=".25" stop-color="#6a0d27"/><stop offset="1" stop-color="#3c0616"/>
+      </linearGradient>
+      <linearGradient id="gSeatTop" x1="0" y1="2236" x2="0" y2="2280" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#5a0a20"/><stop offset="1" stop-color="#9a1a3e"/>
+      </linearGradient>
+      <linearGradient id="gSeatFront" x1="0" y1="2278" x2="0" y2="2406" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#8a1536"/><stop offset=".4" stop-color="#5c0a22"/><stop offset="1" stop-color="#2e0411"/>
+      </linearGradient>
+      <linearGradient id="gFloor" x1="0" y1="2330" x2="0" y2="3300" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#120410"/><stop offset=".3" stop-color="#1c0617"/><stop offset="1" stop-color="#07010a"/>
+      </linearGradient>
+      <radialGradient id="gRug"><stop offset="0" stop-color="#5c0c24" stop-opacity=".85"/><stop offset=".85" stop-color="#3a0617" stop-opacity=".8"/><stop offset="1" stop-color="#3a0617" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gCandle"><stop offset="0" stop-color="#ffd38a" stop-opacity=".55"/><stop offset=".35" stop-color="#ff7a4a" stop-opacity=".18"/><stop offset="1" stop-color="#ff4a6a" stop-opacity="0"/></radialGradient>
+      <linearGradient id="gWax" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9bfae"/><stop offset=".45" stop-color="#fff1e2"/><stop offset="1" stop-color="#c7a592"/></linearGradient>
+      <radialGradient id="gFlame" cx=".5" cy=".7" r=".6"><stop offset="0" stop-color="#fffbe6"/><stop offset=".45" stop-color="#ffd05a"/><stop offset="1" stop-color="#ff6a2a" stop-opacity="0"/></radialGradient>
       <linearGradient id="gBodice" x1="0" y1="780" x2="0" y2="1000" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#2e0b28"/>
         <stop offset="1" stop-color="#0b020a"/>
@@ -233,6 +275,7 @@
         </g>
       </g>
 
+      <g id="room"></g>
       <g id="wingL"><path class="mem" fill="url(#gWing)" opacity=".96"/><path class="folds" fill="none" stroke="#a8285a" stroke-width="1.3" opacity=".45"/><path class="rim" fill="none" stroke="#ff5c9e" stroke-width="2.4" opacity=".4"/><path class="bones" fill="#1a0712"/></g>
       <g id="wingR"><path class="mem" fill="url(#gWing)" opacity=".96"/><path class="folds" fill="none" stroke="#a8285a" stroke-width="1.3" opacity=".45"/><path class="rim" fill="none" stroke="#ff5c9e" stroke-width="2.4" opacity=".4"/><path class="bones" fill="#1a0712"/></g>
 
@@ -242,15 +285,20 @@
       </g>
 
       <g id="headBack">
-        <path id="backHair" fill="url(#gHair)" d="M 400 126 C 300 124, 232 196, 224 300 C 216 380, 222 450, 198 520 C 172 596, 128 650, 118 750 C 110 830, 128 910, 108 1110 L 692 1110 C 672 910, 690 830, 682 750 C 672 650, 628 596, 602 520 C 578 450, 586 380, 576 300 C 568 196, 500 124, 400 126 Z"/>
+        <path id="backHair" fill="url(#gHair)" d="M 400 126 C 300 124, 232 196, 224 300 C 216 380, 222 450, 198 520 C 172 596, 128 650, 118 750 C 110 830, 128 910, 116 1000 C 112 1050, 122 1090, 142 1134 L 164 1086 L 188 1140 L 214 1080 L 400 1070 L 586 1080 L 612 1140 L 636 1086 L 658 1134 C 678 1090, 688 1050, 684 1000 C 672 910, 690 830, 682 750 C 672 650, 628 596, 602 520 C 578 450, 586 380, 576 300 C 568 196, 500 124, 400 126 Z"/>
         <path fill="none" stroke="#ff5fa8" stroke-width="2.2" opacity=".3" d="M 226 300 C 216 380, 222 450, 198 520 C 172 596, 128 650, 118 750 C 110 830, 128 910, 108 1000 M 574 300 C 584 380, 578 450, 602 520 C 628 596, 672 650, 682 750 C 690 830, 672 910, 692 1000"/>
         <path id="backTex" fill="none" stroke="#9c3a86" stroke-linecap="round"/>
         <g id="backStrands"></g>
       </g>
 
+      <g id="legs"></g>
       <g id="breath">
         <g id="bodyG">
-          <path id="bodySkin" fill="url(#gBody)" d="M 366 430 C 368 484, 366 510, 357 528 C 336 564, 274 576, 230 596 C 188 616, 168 666, 160 764 L 148 1110 L 214 1110 L 222 800 C 224 760, 228 724, 236 704 L 229 750 C 231 786, 243 812, 257 838 C 271 866, 279 900, 279 950 L 275 1110 L 525 1110 L 521 950 C 521 900, 529 866, 543 838 C 557 812, 569 786, 571 750 L 564 704 C 572 724, 576 760, 578 800 L 586 1110 L 652 1110 L 640 764 C 632 666, 612 616, 570 596 C 526 576, 464 564, 443 528 C 434 510, 432 484, 434 430 Z"/>
+          <path fill="url(#gArmL)" d="M 246 640 L 230 596 C 188 616, 168 666, 160 764 C 156 840, 158 900, 168 948 C 178 990, 210 1018, 250 1030 L 272 1000 C 242 985, 220 960, 214 925 C 210 870, 214 820, 222 790 C 226 750, 230 724, 236 704 Z"/>
+          <path fill="url(#gArmR)" d="M 554 640 L 570 596 C 612 616, 632 666, 640 764 C 644 840, 642 900, 632 948 C 622 990, 590 1018, 550 1030 L 528 1000 C 558 985, 580 960, 586 925 C 590 870, 586 820, 578 790 C 574 750, 570 724, 564 704 Z"/>
+          <path d="M 160 764 C 156 840, 158 900, 168 948 C 178 990, 210 1018, 250 1030 M 640 764 C 644 840, 642 900, 632 948 C 622 990, 590 1018, 550 1030" fill="none" stroke="#ff6fae" stroke-width="2.4" opacity=".3"/>
+          <path d="M 214 925 C 218 945, 226 958, 238 968 M 586 925 C 582 945, 574 958, 562 968" fill="none" stroke="#b77592" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+          <path id="bodySkin" fill="url(#gBody)" d="M 366 430 C 368 484, 366 510, 357 528 C 336 564, 274 576, 230 596 C 204 606, 192 626, 190 650 L 236 704 L 229 750 C 231 786, 243 812, 257 838 C 271 866, 279 900, 279 950 C 279 1010, 252 1060, 232 1104 L 568 1104 C 548 1060, 521 1010, 521 950 C 521 900, 529 866, 543 838 C 557 812, 569 786, 571 750 L 564 704 L 610 650 C 608 626, 596 606, 570 596 C 526 576, 464 564, 443 528 C 434 510, 432 484, 434 430 Z"/>
           <g clip-path="url(#cBody)">
             <ellipse cx="372" cy="495" rx="12" ry="50" fill="url(#gShade)" opacity=".45"/>
             <ellipse cx="428" cy="495" rx="12" ry="50" fill="url(#gShade)" opacity=".3"/>
@@ -264,6 +312,13 @@
             <path d="M 357 528 C 336 564, 274 576, 230 596 C 188 616, 168 666, 160 764 L 148 1000" fill="none" stroke="#ff6fae" stroke-width="3" opacity=".35"/>
             <path d="M 443 528 C 464 564, 526 576, 570 596 C 612 616, 632 666, 640 764 L 652 1000" fill="none" stroke="#ff6fae" stroke-width="3" opacity=".35"/>
           </g>
+          <!-- short flared skirt (hem is animated) -->
+          <path id="skirtUnder" fill="url(#gSkirtUnder)"/>
+          <path id="skirtUnderLace" fill="none" stroke="#ff5e94" stroke-width="1.6" opacity=".55"/>
+          <path id="skirt" fill="url(#gSkirt)"/>
+          <path id="skirtFolds" fill="none" stroke="#050104" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+          <path id="skirtSheen" fill="none" stroke="#ff8fc6" stroke-width="3" stroke-linecap="round" opacity=".12"/>
+          <path id="skirtLace" fill="none" stroke="#b3164a" stroke-width="2.4" stroke-linejoin="round"/>
           <!-- bust + corset: the paths are driven by the bust spring in JS -->
           <g id="breastL">
             <ellipse cx="322" cy="742" rx="97" ry="91" fill="url(#gBreastL)"/>
@@ -284,6 +339,8 @@
           <path id="corsetTrim" fill="none" stroke="#b3164a" stroke-width="3.5" stroke-linejoin="round"/>
           <path id="corsetBeads" fill="none" stroke="#e6b24f" stroke-width="3" stroke-dasharray="0 12" stroke-linecap="round" opacity=".9"/>
           <path id="corsetGem" d="M 0 -11 C 6 -4, 9 2, 0 12 C -9 2, -6 -4, 0 -11 Z" fill="url(#gRuby)"/>
+          <path d="M 400 1000 C 384 988, 366 984, 362 994 C 358 1004, 380 1006, 400 1000 C 420 1006, 442 1004, 438 994 C 434 984, 416 988, 400 1000 Z M 400 1000 L 390 1034 M 400 1000 L 412 1036" fill="#b3164a" stroke="#b3164a" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="400" cy="1000" r="5" fill="url(#gRuby)"/>
           <!-- choker -->
           <path d="M 367 492 C 386 503, 414 503, 433 492 L 433.6 505 C 414 516, 386 516, 366.4 505 Z" fill="#12040f"/>
           <path d="M 367 493 C 386 504, 414 504, 433 493" fill="none" stroke="#ff6fae" stroke-width="1" opacity=".5"/>
@@ -292,6 +349,7 @@
         </g>
       </g>
 
+      <g id="soleG" style="display:none"></g>
       <g id="headFront">
         <path id="face" fill="url(#gFace)" d="M 305 300 C 302 358, 316 404, 344 436 C 364 458, 386 471, 400 473 C 414 471, 436 458, 456 436 C 484 404, 498 358, 495 300 C 490 222, 442 190, 400 190 C 358 190, 310 222, 305 300 Z"/>
         <path fill="none" stroke="#b7728f" stroke-width="1.2" opacity=".55" d="M 305 300 C 302 358, 316 404, 344 436 C 364 458, 386 471, 400 473 C 414 471, 436 458, 456 436 C 484 404, 498 358, 495 300"/>
@@ -318,12 +376,14 @@
         <!-- hair cap -->
         <path fill="url(#gHairF)" d="M 294 330 C 276 222, 322 136, 402 132 C 482 132, 530 216, 510 330 C 500 280, 482 240, 452 222 C 420 205, 376 208, 348 226 C 318 246, 304 285, 300 330 Z"/>
         <!-- ears -->
-        <g id="earL" transform="translate(308 348) scale(.76) translate(-308 -348)">
+        <g id="earL" class="ear" transform="translate(308 348) scale(.76) translate(-308 -348)">
+          <ellipse cx="276" cy="316" rx="46" ry="62" fill="transparent" transform="rotate(-38 276 316)"/>
           <path fill="url(#gFace)" stroke="#b7728f" stroke-width="1" d="M 309 316 C 288 300, 266 280, 243 261 C 251 292, 265 334, 294 374 C 302 382, 310 374, 310 360 Z"/>
           <path fill="#d998ae" opacity=".7" d="M 300 330 C 284 314, 268 297, 257 285 C 263 305, 273 330, 294 356 Z"/>
           <path fill="none" stroke="#ff7ab3" stroke-width="1.5" opacity=".3" d="M 243 262 C 251 292, 265 334, 294 374"/>
         </g>
-        <g id="earR" transform="translate(492 348) scale(.76) translate(-492 -348)">
+        <g id="earR" class="ear" transform="translate(492 348) scale(.76) translate(-492 -348)">
+          <ellipse cx="524" cy="316" rx="46" ry="62" fill="transparent" transform="rotate(38 524 316)"/>
           <path fill="url(#gFace)" stroke="#b7728f" stroke-width="1" d="M 491 316 C 512 300, 534 280, 557 261 C 549 292, 535 334, 506 374 C 498 382, 490 374, 490 360 Z"/>
           <path fill="#d998ae" opacity=".7" d="M 500 330 C 516 314, 532 297, 543 285 C 537 305, 527 330, 506 356 Z"/>
           <path fill="none" stroke="#ff7ab3" stroke-width="1.5" opacity=".3" d="M 557 262 C 549 292, 535 334, 506 374"/>
@@ -346,8 +406,6 @@
         <path fill="none" stroke="#ff9ad0" stroke-width="2" stroke-linecap="round" opacity=".22" d="M 352 206 C 380 190, 428 188, 456 202"/>
       </g>
 
-      <rect x="-3000" y="880" width="7000" height="222" fill="url(#gFade)"/>
-      <rect x="-3000" y="1100" width="7000" height="3000" fill="#06010a"/>
       <rect id="dark" x="-4000" y="-4000" width="9000" height="9000" fill="#030007"/>
       <g id="eyeGlowG">
         <ellipse cx="352" cy="338" rx="46" ry="26" fill="url(#gEyeGlow)"/>
@@ -364,7 +422,8 @@
   </div>
   <div id="flash"></div>
 
-  <div id="caption"><div class="name">Lilith</div><div class="tip">tap for another kiss</div></div>
+  <div id="bubble"></div>
+  <div id="caption"><div class="name">Lilith</div><div class="tip">tap for a kiss · grab her ears</div></div>
   <div id="hud">
     <button id="btnSound" aria-label="Toggle sound" title="Sound">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="w" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/><path class="x" d="M17 9l5 6M22 9l-5 6" style="display:none"/></svg>
@@ -457,6 +516,7 @@ const wingEls = ['#wingL', '#wingR'].map(id => { const g = $(id); return { g, me
 const tailP = $('#tail'), tailTip = $('#tailTip');
 const blushL = $('#blushL'), blushR = $('#blushR');
 const ringL = $('#ringL'), ringR = $('#ringR'), ringOuter = $('#ringOuter'), ringInner = $('#ringInner');
+const legsG = $('#legs'), roomG = $('#room'), soleG = $('#soleG');
 
 /* ---------------- magic circle ---------------- */
 (function buildCircle() {
@@ -742,6 +802,252 @@ function updTail(T, k) {
 
 buildHair(); buildEyes(); buildMouth();
 
+/* ---------------- room: floor, rug, candles, sofa ---------------- */
+const flames = [];
+function buildRoom() {
+  const g = $('#room');
+  el('rect', { x: -6000, y: 1360, width: 12800, height: 7000, fill: 'url(#gFloor)' }, g);
+  el('ellipse', { cx: 400, cy: 1690, rx: 1150, ry: 200, fill: 'url(#gRug)' }, g);
+  el('ellipse', { cx: 400, cy: 1690, rx: 1060, ry: 168, fill: 'none', stroke: '#b8862f', 'stroke-width': 3, opacity: .35 }, g);
+  for (const [bx, dir] of [[-640, 1], [1440, -1]]) {
+    for (const [dx, h, w] of [[0, 230, 44], [dir * 62, 150, 40], [dir * -52, 110, 36]]) {
+      const x = bx + dx, top = 1660 - h;
+      const glow = el('circle', { cx: x, cy: top - 30, r: 260, fill: 'url(#gCandle)' }, g);
+      el('rect', { x: x - w / 2, y: top, width: w, height: h, rx: 6, fill: 'url(#gWax)' }, g);
+      el('path', { d: `M${x - w / 2 + 2} ${top + 4} q 6 18 0 34 q 9 -10 10 -32 M${x + w / 5} ${top + 3} q 5 26 -2 44 q 9 -8 8 -42`, fill: '#fff4e6', opacity: .8 }, g);
+      el('path', { d: `M${x} ${top} L${x} ${top - 12}`, stroke: '#2a1a14', 'stroke-width': 2 }, g);
+      const fl = el('path', { d: 'M 0 0 C -9 -10, -8 -26, 0 -44 C 8 -26, 9 -10, 0 0 Z', fill: 'url(#gFlame)' }, g);
+      flames.push({ fl, glow, x, y: top - 8, ph: rand(0, 6) });
+    }
+  }
+  const sofa = el('g', null, g);
+  const backD = 'M -300 1130 L -300 800 C -240 730, 60 704, 400 698 C 740 704, 1040 730, 1100 800 L 1100 1130 Z';
+  const rimD = 'M -300 800 C -240 730, 60 704, 400 698 C 740 704, 1040 730, 1100 800';
+  el('path', { d: backD }, el('clipPath', { id: 'cSofaBack' }, $('#scene defs')));
+  el('path', { d: backD, fill: 'url(#gVelvet)' }, sofa);
+  let crease = '', btn = '';
+  for (let r = 0; r < 7; r++) for (let c = -4; c < 17; c++) {
+    const x = -300 + c * 92 + (r % 2 ? 46 : 0), y = 756 + r * 58;
+    btn += `M${x - 4},${y}a4,4 0 1,0 8,0a4,4 0 1,0 -8,0`;
+    crease += `M${x},${y}L${x + 46},${y + 58}M${x},${y}L${x - 46},${y + 58}`;
+  }
+  el('path', { d: crease, stroke: '#2a0310', 'stroke-width': 3, opacity: .55, 'clip-path': 'url(#cSofaBack)' }, sofa);
+  el('path', { d: crease, stroke: '#b3264e', 'stroke-width': 1.4, opacity: .3, transform: 'translate(0 -3)', 'clip-path': 'url(#cSofaBack)' }, sofa);
+  el('path', { d: btn, fill: '#200208', 'clip-path': 'url(#cSofaBack)' }, sofa);
+  el('path', { d: rimD, fill: 'none', stroke: '#a3203f', 'stroke-width': 24, 'stroke-linecap': 'round' }, sofa);
+  el('path', { d: rimD, fill: 'none', stroke: '#e6b24f', 'stroke-width': 2.5, opacity: .7, transform: 'translate(0 13)' }, sofa);
+  el('path', { d: 'M -246 1112 L 1046 1112 L 1062 1166 L -262 1166 Z', fill: 'url(#gSeatTop)' }, sofa);
+  el('path', { d: 'M -262 1166 L 1062 1166 L 1062 1388 Q 1062 1400 1050 1400 L -250 1400 Q -262 1400 -262 1388 Z', fill: 'url(#gSeatFront)' }, sofa);
+  el('path', { d: 'M -262 1166 L 1062 1166', stroke: '#e6b24f', 'stroke-width': 2.5, opacity: .7 }, sofa);
+  el('path', { d: 'M 22 1114 L 18 1398 M 778 1114 L 782 1398', stroke: '#2a0310', 'stroke-width': 3, opacity: .6 }, sofa);
+  el('ellipse', { cx: 400, cy: 1150, rx: 290, ry: 36, fill: 'url(#gShade)', opacity: .85 }, sofa);
+  for (const sg of [-1, 1]) {
+    const X = x => sg < 0 ? x : 800 - x;
+    el('path', { d: `M${X(-380)} 1412 L${X(-380)} 990 C${X(-380)} 920 ${X(-350)} 898 ${X(-300)} 898 C${X(-250)} 898 ${X(-218)} 920 ${X(-218)} 990 L${X(-218)} 1412 Z`, fill: 'url(#gVelvet)' }, sofa);
+    el('ellipse', { cx: X(-299), cy: 984, rx: 66, ry: 72, fill: '#4a0719', stroke: '#a3203f', 'stroke-width': 10 }, sofa);
+    el('circle', { cx: X(-299), cy: 984, r: 9, fill: '#e6b24f', opacity: .85 }, sofa);
+  }
+  el('rect', { x: -380, y: 1400, width: 1560, height: 44, fill: '#240812' }, sofa);
+  el('path', { d: 'M -380 1406 L 1180 1406', stroke: '#e6b24f', 'stroke-width': 2, opacity: .6 }, sofa);
+  for (const x of [-350, 150, 650, 1150]) el('path', { d: `M${x - 18} 1444 C${x - 18} 1472 ${x - 8} 1486 ${x} 1494 C${x + 8} 1486 ${x + 18} 1472 ${x + 18} 1444 Z`, fill: '#c8952f' }, sofa);
+}
+function updRoom() {
+  for (const f of flames) {
+    const k = .86 + .14 * Math.sin(T * 13 + f.ph) * Math.sin(T * 7.3 + f.ph * 2);
+    f.fl.setAttribute('transform', `translate(${f.x} ${f.y}) rotate(${F(Math.sin(T * 3 + f.ph) * 4)}) scale(${F(k * 100) / 100} ${F((.88 + .24 * k) * 100) / 100})`);
+    f.glow.setAttribute('opacity', F((.72 + .28 * k) * 100) / 100);
+  }
+}
+
+/* ---------------- legs & feet ---------------- */
+const LEGKEYS = [[0, 41, 37], [.34, 54, 43], [.8, 30, 27], [1, 23, 21]];
+// shins only (knee -> calf -> ankle); the thighs point at the camera and are drawn as short rounded shapes
+const LEG_SIT = { L: [[350, 1222], [334, 1400], [308, 1580]], R: [[450, 1222], [420, 1406], [384, 1588]] };
+const LEG_UP = { L: [[350, 1222], [344, 1276], [338, 1330]], R: [[450, 1222], [456, 1276], [462, 1330]] };
+const THIGH_D = { L: 'M 258 1100 C 254 1172, 286 1248, 346 1252 C 394 1254, 402 1208, 400 1100 Z', R: 'M 542 1100 C 546 1172, 514 1248, 454 1252 C 406 1254, 398 1208, 400 1100 Z' };
+const SOLE_TOES = [[-36, -112, 36, 42, -8], [-2, -118, 24, 31, -2], [22, -112, 22, 27, 4], [43, -100, 20, 23, 12], [62, -84, 17, 19, 22]];
+const legEls = {};
+const lerp2 = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+function legWidth(u, i) {
+  for (let k = 1; k < LEGKEYS.length; k++) if (u <= LEGKEYS[k][0]) { const a = LEGKEYS[k - 1], b = LEGKEYS[k]; return lerp(a[i], b[i], smooth(a[0], b[0], u)); }
+  return LEGKEYS[LEGKEYS.length - 1][i];
+}
+function crSegs(P) {
+  const segs = [];
+  for (let i = 0; i < P.length - 1; i++) {
+    const p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2;
+    segs.push([p1, [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6], p2]);
+  }
+  return segs;
+}
+function setLeg(k, P, side, ws) {
+  const pts = chain(crSegs(P), 30), L = [], R = [], HL = [], HR = [], H2L = [], H2R = [], SL = [];
+  for (const p of pts) {
+    const wo = legWidth(p.u, 1) * ws, wi = legWidth(p.u, 2) * ws, wl = side < 0 ? wo : wi, wr = side < 0 ? wi : wo;
+    const a = [p.x + p.nx * wl, p.y + p.ny * wl], b = [p.x - p.nx * wr, p.y - p.ny * wr];
+    L.push(a); R.push(b); HL.push(lerp2(a, b, .14)); HR.push(lerp2(a, b, .48)); H2L.push(lerp2(a, b, .22)); H2R.push(lerp2(a, b, .38)); SL.push(lerp2(a, b, .74));
+  }
+  const band = (A, B) => `M${P2(A[0])}${crs(A)}L${P2(B[B.length - 1])}${crs(B.slice().reverse())}Z`;
+  const E = legEls[k];
+  E.out.setAttribute('d', band(L, R)); E.hi.setAttribute('d', band(HL, HR)); E.hi2.setAttribute('d', band(H2L, H2R)); E.sh.setAttribute('d', band(SL, R));
+}
+function buildFoot(parent, m) {
+  const g = el('g', null, parent), f = el('g', { transform: `scale(${m * 1.18} 1.18)` }, g);
+  el('ellipse', { cx: 2, cy: 80, rx: 54, ry: 9, fill: 'url(#gShade)', opacity: .55 }, f);
+  el('path', { d: 'M -25 -26 C -27 8, -36 40, -45 64 C -34 77, 38 75, 49 62 C 43 42, 33 8, 27 -26 Z', fill: '#f3ced3' }, f);
+  el('path', { d: 'M -27 8 C -30 30, -37 48, -45 64 M 33 8 C 38 30, 44 46, 49 62', fill: 'none', stroke: '#c98aa0', 'stroke-width': 1.1, opacity: .6 }, f);
+  el('ellipse', { cx: -3, cy: 28, rx: 14, ry: 26, fill: 'url(#gSoftW)', opacity: .45 }, f);
+  el('ellipse', { cx: -24, cy: -4, rx: 6, ry: 7, fill: 'url(#gSoftW)', opacity: .55 }, f);
+  el('ellipse', { cx: 27, cy: 2, rx: 5, ry: 6, fill: 'url(#gShade)', opacity: .35 }, f);
+  el('path', { d: 'M -40 60 C -20 66, 20 66, 44 58', fill: 'none', stroke: '#c98aa0', 'stroke-width': 1, opacity: .45 }, f);
+  if (m < 0) { el('path', { d: 'M -26 -6 Q 0 10 28 -6', fill: 'none', stroke: '#e6b24f', 'stroke-width': 1.6, 'stroke-dasharray': '2 2.5' }, f); el('path', { d: 'M 1 12 C -3 8, -5 5, -3 3 C -1 1, 1 3, 1 4 C 1 3, 3 1, 5 3 C 7 5, 5 8, 1 12 Z', fill: 'url(#gRuby)' }, f); }
+  for (const [cx, cy, rx, ry] of [[39, 66, 7.5, 7], [25, 70, 8.5, 8], [9, 72, 9.2, 8.6], [-9, 73, 10, 9.2], [-30, 71, 13.5, 11.5]]) {
+    el('ellipse', { cx, cy, rx, ry, fill: '#f5d4d8', stroke: '#c98aa0', 'stroke-width': .9, 'stroke-opacity': .7 }, f);
+    el('ellipse', { cx, cy: cy + ry * .18, rx: F(rx * .62), ry: F(ry * .5), fill: '#b80d3c' }, f);
+    el('ellipse', { cx: cx - rx * .18, cy: cy - ry * .06, rx: F(rx * .22), ry: F(ry * .12), fill: '#fff', opacity: .7 }, f);
+  }
+  return g;
+}
+function buildSole(parent, m) {
+  const sg = el('g', null, parent), f = el('g', { transform: `scale(${m} 1)` }, sg);
+  el('path', { d: 'M 4 132 C -26 132, -44 114, -46 84 C -48 56, -34 30, -32 4 C -30 -22, -52 -44, -60 -72 C -64 -90, -60 -108, -52 -118 C -30 -126, 10 -126, 30 -118 C 48 -110, 62 -98, 72 -80 C 76 -70, 76 -56, 72 -44 C 66 -6, 60 30, 58 60 C 56 96, 50 116, 38 126 C 28 132, 16 132, 4 132 Z', fill: '#f7d6da', stroke: '#c98aa0', 'stroke-width': 1.3 }, f);
+  el('ellipse', { cx: 6, cy: 96, rx: 42, ry: 30, fill: 'url(#gSolePad)', opacity: .9 }, f);
+  el('ellipse', { cx: 6, cy: -80, rx: 62, ry: 27, fill: 'url(#gSolePad)', opacity: .85 }, f);
+  el('ellipse', { cx: -24, cy: 12, rx: 14, ry: 46, fill: 'url(#gShade)', opacity: .35 }, f);
+  el('ellipse', { cx: 30, cy: 30, rx: 20, ry: 58, fill: 'url(#gSoftW)', opacity: .4 }, f);
+  el('path', { d: 'M -54 -112 C -20 -122, 30 -116, 66 -88 M -30 -60 C -6 -52, 26 -52, 50 -62', fill: 'none', stroke: '#d68aa2', 'stroke-width': 1.3, 'stroke-linecap': 'round', opacity: .5 }, f);
+  const toes = SOLE_TOES.map(([bx, by, w, L, ang]) => {
+    const t = el('g', null, f), inner = el('g', { transform: `translate(${bx} ${by}) rotate(${ang})` }, t);
+    el('path', { d: `M ${-w / 2} 6 C ${-w / 2} ${-L * .5}, ${F(-w * .42)} ${-L}, 0 ${-L} C ${F(w * .42)} ${-L}, ${w / 2} ${-L * .5}, ${w / 2} 6 Z`, fill: '#f8d9dd' }, inner);
+    el('path', { d: `M ${-w / 2} 2 C ${-w / 2} ${-L * .5}, ${F(-w * .42)} ${-L}, 0 ${-L} C ${F(w * .42)} ${-L}, ${w / 2} ${-L * .5}, ${w / 2} 2`, fill: 'none', stroke: '#c98aa0', 'stroke-width': 1.2 }, inner);
+    el('ellipse', { cx: 0, cy: F(-L * .62), rx: F(w * .34), ry: F(L * .26), fill: 'url(#gSolePad)', opacity: .9 }, inner);
+    return { el: t, d: [bx, by] };
+  });
+  return { g: sg, toes };
+}
+function buildLegs() {
+  const g = $('#legs');
+  for (const k of ['L', 'R']) {
+    const lg = el('g', null, g);
+    legEls[k] = {
+      out: el('path', { fill: 'url(#gLeg)', stroke: '#c07a93', 'stroke-width': 1.2, 'stroke-opacity': .5 }, lg),
+      sh: el('path', { fill: '#b8718f', opacity: .2 }, lg),
+      hi: el('path', { fill: '#fff', opacity: .16 }, lg),
+      hi2: el('path', { fill: '#fff', opacity: .14 }, lg),
+    };
+  }
+  for (const k of ['L', 'R']) legEls[k].foot = buildFoot(g, k === 'L' ? -1 : 1);
+  // thighs + knees, in front of the shins and under the skirt
+  el('ellipse', { cx: 400, cy: 1262, rx: 120, ry: 18, fill: 'url(#gShade)', opacity: .6 }, g);
+  for (const k of ['L', 'R']) {
+    const sx = k === 'L' ? 1 : -1, X = x => 400 - sx * (400 - x);
+    el('path', { d: THIGH_D[k], fill: 'url(#gLeg)', stroke: '#c07a93', 'stroke-width': 1.2, 'stroke-opacity': .55 }, g);
+    el('ellipse', { cx: X(322), cy: 1168, rx: 44, ry: 30, fill: 'url(#gSoftW)', opacity: .55 }, g);
+    el('ellipse', { cx: X(348), cy: 1226, rx: 26, ry: 17, fill: 'url(#gSoftW)', opacity: .5 }, g);
+    el('path', { d: `M${X(328)} 1214 Q${X(348)} 1236 ${X(370)} 1214 M${X(336)} 1244 Q${X(348)} 1250 ${X(362)} 1244`, fill: 'none', stroke: '#c07a93', 'stroke-width': 1.5, 'stroke-linecap': 'round', opacity: .5 }, g);
+  }
+  el('path', { d: 'M 400 1120 C 401 1170, 401 1215, 400 1252', fill: 'none', stroke: '#a45c7e', 'stroke-width': 2, 'stroke-linecap': 'round', opacity: .55 }, g);
+  // the soles face the camera: big toes on the inside, so the two feet mirror each other
+  legEls.L.sole = buildSole($('#soleG'), -1);
+  legEls.R.sole = buildSole($('#soleG'), 1);
+  legEls.last = -1;
+}
+function updLegs(l, toe, boop) {
+  const lift = { L: smooth(0, .85, l), R: smooth(.15, 1, l) };
+  if (Math.abs(l - legEls.last) > .0004) {
+    legEls.last = l;
+    for (const k of ['L', 'R']) {
+      const e = lift[k], side = k === 'L' ? -1 : 1;
+      const P = LEG_SIT[k].map((p, i) => [lerp(p[0], LEG_UP[k][i][0], e), lerp(p[1], LEG_UP[k][i][1], e) - Math.sin(Math.PI * e) * (i > 1 ? 40 : 0)]);
+      setLeg(k, P, side, 1 + .1 * e);
+      const A = legEls[k].ankle = P[2], E = legEls[k];
+      E.foot.setAttribute('transform', `translate(${F(A[0])} ${F(A[1])}) scale(1 ${F((1 - .45 * e) * 100) / 100})`);
+      E.foot.setAttribute('opacity', F((1 - smooth(.3, .55, e)) * 100) / 100);
+      E.sole.g.style.display = e > .36 ? '' : 'none';
+    }
+    soleG.style.display = l > .3 ? '' : 'none';
+  }
+  if (l > .3) for (const k of ['L', 'R']) {
+    const e = lift[k], E = legEls[k]; if (e <= .36) continue;
+    const A = E.ankle, sc = lerp(.7, 1.3, smooth(.36, 1, e)) * (1 + .55 * boop), side = k === 'L' ? -1 : 1;
+    E.sole.g.setAttribute('transform', `translate(${F(A[0] + side * 4)} ${F(A[1] + 34 - 112 * sc)}) rotate(${F(side * (6 + 4 * Math.sin(T * 1.6 + side) * toe))}) scale(${F(sc * 1000) / 1000})`);
+    E.sole.g.setAttribute('opacity', F(smooth(.36, .6, e) * 100) / 100);
+    E.sole.toes.forEach((t, i) => {
+      const c = toe * Math.max(0, Math.sin(T * 8.5 - i * .75 + (side > 0 ? 1.6 : 0))), [bx, by] = t.d;
+      t.el.setAttribute('transform', `translate(${bx} ${F(by + c * 3)}) scale(1 ${F((1 - c * .34) * 100) / 100}) translate(${-bx} ${-by})`);
+    });
+  }
+}
+
+/* ---------------- skirt (hem sways on its own spring) ---------------- */
+const skirtEls = { under: $('#skirtUnder'), underLace: $('#skirtUnderLace'), over: $('#skirt'), folds: $('#skirtFolds'), sheen: $('#skirtSheen'), lace: $('#skirtLace') };
+const skirtSp = { x: 0, vx: 0, y: 0, vy: 0 };
+function updSkirt(dt, lift) {
+  if (dt > 0) {
+    const n = Math.ceil(dt * 240), h = dt / n;
+    for (let i = 0; i < n; i++) {
+      skirtSp.vx += (-45 * skirtSp.x - 4 * skirtSp.vx - (bust.aX || 0) * .5) * h; skirtSp.x = clamp(skirtSp.x + skirtSp.vx * h, -26, 26);
+      skirtSp.vy += (-60 * skirtSp.y - 4.5 * skirtSp.vy - (bust.aY || 0) * .35) * h; skirtSp.y = clamp(skirtSp.y + skirtSp.vy * h, -22, 22);
+    }
+  }
+  const sx = skirtSp.x, sy = skirtSp.y;
+  const hem = (N, base, spread, amp) => {
+    const P = [];
+    for (let i = 0; i <= N; i++) {
+      const t = i / N, x0 = lerp(400 - spread, 400 + spread, t), bump = Math.exp(-Math.pow((x0 - 400) / 150, 2)), edge = Math.abs(t - .5) * 2, lap = 16 * (1 - edge * edge) - 10 * edge * edge;
+      P.push([x0 + sx * (.8 + .4 * edge), base + lap + amp * Math.sin(T * 2.3 + i * 1.7) + sy * (.6 + .5 * Math.sin(i * 2.1)) - lift * 22 * bump]);
+    }
+    return P;
+  };
+  const scal = (P, dy) => { let d = ''; for (let i = P.length - 1; i > 0; i--) { const a = P[i], b = P[i - 1]; d += `Q${P2([(a[0] + b[0]) / 2, Math.max(a[1], b[1]) + dy])} ${P2(b)}`; } return d; };
+  const H = hem(14, 1150, 252, 2.5), U = hem(28, 1166, 262, 2);
+  const side = (P, w) => [`M266,926 L534,926 C${P2([568 + w, 990])} ${P2([636 + w + sx * .5, 1080])} ${P2(P[P.length - 1])}`, `C${P2([164 - w + sx * .5, 1080])} ${P2([232 - w, 990])} 266,926 Z`];
+  const su = side(U, 6), so = side(H, 0), su2 = scal(U, 7), so2 = scal(H, 13);
+  skirtEls.under.setAttribute('d', su[0] + su2 + su[1]);
+  skirtEls.underLace.setAttribute('d', `M${P2(U[U.length - 1])}` + su2);
+  skirtEls.over.setAttribute('d', so[0] + so2 + so[1]);
+  skirtEls.lace.setAttribute('d', `M${P2(H[H.length - 1])}` + so2);
+  let fo = '', sh = '';
+  for (let i = 1; i <= 6; i++) {
+    const x0 = lerp(284, 516, i / 7), h = H[i * 2], c = [(x0 + h[0]) / 2 + sx * .25, 1070];
+    fo += `M${F(x0)},962 Q${P2(c)} ${P2([h[0], h[1] + 4])}`;
+    sh += `M${F(x0 + 9)},990 Q${P2([c[0] + 12, c[1]])} ${P2([h[0] + 14, h[1] - 10])}`;
+  }
+  skirtEls.folds.setAttribute('d', fo); skirtEls.sheen.setAttribute('d', sh);
+}
+
+/* ---------------- ears: tap to twitch, press & drag to tug ---------------- */
+const EARS = { L: { g: $('#earL'), bx: 308, by: 348, s: -1, a: 0, va: 0, st: 0 }, R: { g: $('#earR'), bx: 492, by: 348, s: 1, a: 0, va: 0, st: 0 } };
+let earGrab = null, nextEarTwitch = 6;
+function updEars(dt) {
+  if (T > nextEarTwitch && !earGrab) { nextEarTwitch = T + rand(5, 11); EARS[Math.random() < .5 ? 'L' : 'R'].va += rand(-240, 240); }
+  for (const k in EARS) {
+    const E = EARS[k];
+    if (earGrab && earGrab.k === k) {
+      const dx = earGrab.dx || 0, dy = earGrab.dy || 0, tgt = clamp(dx * .14 + dy * .1 * E.s, -30, 30);
+      E.a += (tgt - E.a) * Math.min(1, dt * 16); E.va = 0;
+      E.st += (clamp(Math.hypot(dx, dy) / 450, 0, .16) - E.st) * Math.min(1, dt * 12);
+    } else if (dt > 0) {
+      const n = Math.ceil(dt * 240), h = dt / n;
+      for (let i = 0; i < n; i++) { E.va += (-420 * E.a - 9 * E.va) * h; E.a += E.va * h; }
+      E.st *= Math.max(0, 1 - dt * 8);
+    }
+    E.g.setAttribute('transform', `translate(${E.bx} ${E.by}) rotate(${F(E.a)}) scale(${F(.76 * (1 + E.st) * 1000) / 1000} ${F(.76 * (1 + E.st * .5) * 1000) / 1000}) translate(${-E.bx} ${-E.by})`);
+  }
+}
+
+/* ---------------- speech bubble ---------------- */
+const bubble = $('#bubble');
+let bubbleT = -99, bubbleDur = 0;
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const EAR_LINES = ['Mmh~ my ears are sensitive…', 'Hey~ that tickles ♥', 'Careful… I bite back~', 'Do that again… ♥', 'Naughty~ ♥', 'You like my ears? ♥', 'Ahn~ not the ears…'];
+const KISS_LINES = ['Come here~ ♥', 'One more kiss~', 'Closer… ♥'];
+function say(text, dur = 2.6) { bubble.textContent = text; bubble.classList.add('show'); bubbleT = T; bubbleDur = dur; placeBubble(); }
+function placeBubble() {
+  const [x, y] = headToScreen(548, 196);
+  bubble.style.left = F(clamp(x, 130, innerWidth - 150)) + 'px'; bubble.style.top = F(clamp(y, innerWidth < 600 ? 110 : 80, innerHeight - 40)) + 'px';
+}
+
 /* ---------------- bust (spring physics) ---------------- */
 const bust = { L: { x: 0, y: 0, vx: 0, vy: 0, k: 128 }, R: { x: 0, y: 0, vx: 0, vy: 0, k: 118 }, by: null, bx: 0, bv: 0, bxv: 0 };
 const bustEls = { L: $('#breastL'), R: $('#breastR'), corset: $('#corset'), trim: $('#corsetTrim'), beads: $('#corsetBeads'), sheen: $('#corsetSheen'), seams: $('#corsetSeams'), cleave: $('#cleave'), cleaveSoft: $('#cleaveSoft'), gem: $('#corsetGem') };
@@ -752,7 +1058,7 @@ function stepBust(dt, bodyY, bodyX) {
   // the body's acceleration is what makes the bust lag behind and bounce
   const vY = (bodyY - bust.by) / dt, vX = (bodyX - bust.bx) / dt;
   const aY = clamp((vY - bust.bv) / dt, -5000, 5000), aX = clamp((vX - bust.bxv) / dt, -5000, 5000);
-  bust.by = bodyY; bust.bx = bodyX; bust.bv = vY; bust.bxv = vX;
+  bust.by = bodyY; bust.bx = bodyX; bust.bv = vY; bust.bxv = vX; bust.aX = aX; bust.aY = aY;
   const n = Math.ceil(dt * 240), h = dt / n;
   for (const b of [bust.L, bust.R]) for (let i = 0; i < n; i++) {
     b.vy += (-b.k * b.y - 5.2 * b.vy - aY * 1.2) * h; b.y = clamp(b.y + b.vy * h, -18, 18);
@@ -767,7 +1073,7 @@ function updBust() {
   const mx = (L.x + R.x) / 2, my = (L.y + R.y) / 2, dip = [400 + mx * .8, 772 + my * .75];
   const edge = (dy, e = 0) => `M${224 + e},${750 + dy} C${o(234, 718, L, .5, dy)} ${o(256, 696, L, 1, dy)} ${o(298, 693, L, 1, dy)} C${o(350, 690, L, 1, dy)} ${o(388, 724, L, .7, dy)} ${P2([dip[0], dip[1] + dy])} C${o(412, 724, R, .7, dy)} ${o(450, 690, R, 1, dy)} ${o(502, 693, R, 1, dy)} C${o(544, 696, R, 1, dy)} ${o(566, 718, R, .5, dy)} ${576 - e},${750 + dy}`;
   const top = edge(0);
-  bustEls.corset.setAttribute('d', top + ' C574,786 562,812 548,838 C534,866 526,900 526,950 L530,1110 L270,1110 L274,950 C274,900 266,866 252,838 C238,812 226,786 224,750 Z');
+  bustEls.corset.setAttribute('d', top + ' C574,786 562,812 548,838 C534,866 526,900 526,950 C500,966 440,986 400,1002 C360,986 300,966 274,950 C274,900 266,866 252,838 C238,812 226,786 224,750 Z');
   bustEls.trim.setAttribute('d', top);
   bustEls.beads.setAttribute('d', edge(9, 4));
   bustEls.sheen.setAttribute('d', edge(20, 30));
@@ -823,6 +1129,7 @@ const TL = {
   zoom:    [[0, 1], [3.0, 1], [4.3, 1.08], [5.4, ZM, 'lean'], [5.9, ZM2, 'lin'], [7.1, 1.03, 'io3'], [10, 1]],
   bodyY:   [[0, 16], [1.3, 16], [2.9, 0, 'in'], [3.12, -3, 'out'], [3.4, 0], [9.1, 0], [9.3, -8, 'out'], [9.5, 0, 'in'], [9.72, -5, 'out'], [9.95, 0, 'in']],
   sway:    [[0, 0]],
+  wide: [[0, 0]], footCam: [[0, 0]], leg: [[0, 0]], toe: [[0, 0]], boop: [[0, 0]],
   wingS:   [[0, 0], [1.35, 0], [2.5, 1, 'outBack']],
   wingSc:  [[0, .3], [1.35, .3], [2.2, 1, 'outBack']],
   wingRot: [[0, -40], [1.35, -40], [1.9, 16, 'out'], [2.3, -10], [2.75, 6], [3.3, 0], [5.3, 0], [5.5, 18, 'out'], [6.0, -8], [6.6, 0]],
@@ -837,12 +1144,38 @@ const GEST = {
   tilt:  { dur: 3.4, tr: { headRot: [[0, 0], [.8, 7], [2.5, 7], [3.4, 0]], smirk: [[0, 0], [.8, .6], [2.5, .6], [3.4, 0]], gazeX: [[0, 0], [.6, .22], [2.7, .22], [3.4, 0]], eyeMul: [[0, 1], [.8, .8], [2.5, .8], [3.4, 1]], browL: [[0, 0], [.8, .7], [2.5, .7], [3.4, 0]] } },
   heart: { dur: 2.1, tr: { pucker: [[0, 0], [.4, .85], [.9, .85], [1.3, 0]], open: [[0, 0], [.55, 0], [.62, .28, 'out'], [1.0, 0]], eyeMul: [[0, 1], [.3, .55], [1.2, .55], [1.6, 1]], smile: [[0, 0], [1.1, 0], [1.6, .4], [2.1, 0]] }, fx: [[.6, 'heart']] },
   shrug: { dur: 1.8, tr: { bodyY: [[0, 0], [.22, -9, 'out'], [.44, 0, 'in'], [.66, -6, 'out'], [.88, 0, 'in']], smile: [[0, 0], [.3, .5], [1.4, .5], [1.8, 0]], eyeMul: [[0, 1], [.3, .72], [1.4, .72], [1.8, 1]], headRot: [[0, 0], [.3, -3], [1.8, 0]], sway: [[0, 0], [.22, 1.2], [.66, -1], [1.2, 0]] }, fx: [[.05, 'shrug']] },
+  feet:  { dur: 13, tr: {
+    wide:    [[0, 0], [2.6, 1, 'io3'], [10.3, 1], [12.8, 0, 'io3']],
+    footCam: [[0, 0], [3.5, 0], [4.6, 1], [8.8, 1], [10.0, 0]],
+    leg:     [[0, 0], [3.6, 0], [4.35, 1, 'out'], [8.5, 1], [9.15, 0]],
+    toe:     [[0, 0], [4.4, 0], [4.7, 1], [8.1, 1], [8.4, 0]],
+    boop:    [[0, 0], [6.1, 0], [6.35, 1, 'out'], [6.75, 0]],
+    smile:   [[0, 0], [2.4, .45], [4.4, .8], [8.6, .8], [10.2, 0]],
+    smirk:   [[0, 0], [2.8, .4], [4.2, .2], [8.6, .3], [10.2, 0]],
+    eyeMul:  [[0, 1], [4.5, 1], [4.9, .72], [8.4, .72], [8.9, 1]],
+    blush:   [[0, 0], [4.4, .35], [9, .35], [10.4, 0]],
+    headRot: [[0, 0], [3.3, 7], [8.7, 7], [9.9, 0]],
+    bodyY:   [[0, 0], [3.55, 0], [3.72, 5, 'out'], [3.95, 0, 'in'], [8.95, 0], [9.12, 5, 'out'], [9.34, 0, 'in']],
+    gazeY:   [[0, 0], [4.4, 0], [4.8, .12], [8.6, .12], [9.2, 0]],
+  }, fx: [[.05, 'zoomOut'], [2.9, 'tease'], [3.6, 'lift'], [4.8, 'showFeet'], [6.15, 'boop'], [7.3, 'giggle'], [9.1, 'land'], [10.3, 'zoomIn']], end: 'feetDone' },
   look:  { dur: 3.6, tr: { gazeX: [[0, 0], [.4, -.75], [1.7, -.75], [2.1, .1], [3.6, 0]], gazeY: [[0, 0], [.4, .25], [1.7, .25], [2.1, 0]], headRot: [[0, 0], [.6, -4], [1.9, -4], [2.5, 0]], smile: [[0, 0], [1.9, 0], [2.4, .5], [3.6, 0]] } },
 };
 
+const REACT_EAR = side => ({ dur: 2.8, hold: .9, tr: {
+  blush:   [[0, 0], [.3, .75], [2.2, .7], [2.8, 0]],
+  eyeMul:  [[0, 1], [.12, .22, 'out'], [.9, .22], [1.25, .66], [2.3, .66], [2.8, 1]],
+  smile:   [[0, 0], [.2, .85], [2.2, .7], [2.8, 0]],
+  smirk:   [[0, 0], [1.2, 0], [1.5, .4], [2.3, .4], [2.8, 0]],
+  headRot: [[0, 0], [.35, 7 * side], [2.2, 5 * side], [2.8, 0]],
+  bodyY:   [[0, 0], [.07, -3.5], [.14, 1.2], [.21, -2.5], [.28, .8], [.36, 0]],
+  browL:   [[0, 0], [.3, .45], [2.2, .45], [2.8, 0]],
+  browR:   [[0, 0], [.3, .45], [2.2, .45], [2.8, 0]],
+} });
+
 /* ---------------- runtime state ---------------- */
 let T = 0, seq = 0, playing = false, started = false, last = performance.now();
-let gest = null, gestFired = {}, nextGest = 0, lastGestName = '';
+let gest = null, gestFired = {}, nextGest = 0, lastGestName = '', react = null;
+let kissCount = 0, feetAt = 2 + (Math.random() < .5 ? 1 : 0), nextAutoKiss = 0;
 let blink = { t0: -9, next: 3, dbl: false };
 let mouse = { x: 0, y: 0, t: -99 };
 let shake = { t0: -9, amp: 0 };
@@ -1016,6 +1349,30 @@ const A = {
   },
   glint() { if (!this.C) return; const t = this.now; this.bell(t, 93, .045, 1); this.bell(t + .09, 98, .03, 1); this.sparkle(.6, 8, .02); },
 
+  hum() {
+    if (!this.C) return; const t = this.now + .01, o = this.osc('triangle', 205, t, .72), lp = this.filt('lowpass', 650), g = this.C.createGain(), v = this.osc('sine', 6, t, .72), vg = this.C.createGain();
+    vg.gain.value = 6; v.connect(vg); vg.connect(o.frequency);
+    o.frequency.linearRampToValueAtTime(265, t + .22); o.frequency.linearRampToValueAtTime(215, t + .6);
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.16, t + .08); g.gain.setValueAtTime(.16, t + .4); g.gain.exponentialRampToValueAtTime(.0001, t + .66);
+    o.connect(lp); lp.connect(g); this.bus(g, .9, .4);
+  },
+  giggle() {
+    if (!this.C) return; const t0 = this.now + .02, n = 2 + (Math.random() < .5 ? 1 : 0);
+    for (let i = 0; i < n; i++) {
+      const t = t0 + i * .15, f0 = 360 - i * 18 + rand(-10, 10), o = this.osc('sawtooth', f0 * 1.08, t, .16), g = this.C.createGain(), sum = this.C.createGain();
+      o.frequency.exponentialRampToValueAtTime(f0 * .92, t + .11);
+      [[520, 6, 1], [1950, 9, .5], [2750, 12, .25]].forEach(([f, q, gv]) => { const bp = this.filt('bandpass', f, q), gg = this.C.createGain(); gg.gain.value = gv; o.connect(bp); bp.connect(gg); gg.connect(sum); });
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.35, t + .015); g.gain.exponentialRampToValueAtTime(.0001, t + .12);
+      sum.connect(g); this.bus(g, .8, .45);
+      const nz = this.noise(t - .03, .1), bp = this.filt('bandpass', 2400, .9), ng = this.C.createGain();
+      ng.gain.setValueAtTime(.0001, t - .03); ng.gain.exponentialRampToValueAtTime(.08, t - .005); ng.gain.exponentialRampToValueAtTime(.0001, t + .06);
+      nz.connect(bp); bp.connect(ng); this.bus(ng, 1, .3);
+    }
+  },
+  swish() { if (!this.C) return; const t = this.now, n = this.noise(t, .4), bp = this.filt('bandpass', 600, 1.2), g = this.C.createGain(); bp.frequency.exponentialRampToValueAtTime(2600, t + .28); this.env(g.gain, t, .08, .18, 0, .22); n.connect(bp); bp.connect(g); this.bus(g, .9, .3); },
+  boop() { if (!this.C) return; const t = this.now, o = this.osc('sine', 300, t, .25), g = this.C.createGain(); o.frequency.exponentialRampToValueAtTime(620, t + .09); this.env(g.gain, t, .005, .3, 0, .18); o.connect(g); this.bus(g, 1, .3); this.bell(t + .03, 88, .045); },
+  harp() { if (!this.C) return; const t = this.now; [62, 65, 69, 72, 74, 77, 81, 86].forEach((m, i) => this.bell(t + i * .075, m, .045, .9)); },
+  thump() { if (!this.C) return; const t = this.now, o = this.osc('sine', 110, t, .3), g = this.C.createGain(); o.frequency.exponentialRampToValueAtTime(48, t + .18); this.env(g.gain, t, .004, .4, 0, .22); o.connect(g); this.bus(g, 1, .15); },
   CHORDS: [[38, 50, 57, 60, 64], [34, 53, 57, 60, 62], [31, 50, 53, 57, 58], [33, 52, 55, 61, 58]],
   PHRASES: [
     [[0, 69, .8], [1, 74, .7], [1.5, 76, .6], [2, 77, .8], [3, 76, .6], [3.5, 74, .5], [4, 72, .7], [5, 69, .6], [6.5, 74, .4]],
@@ -1126,8 +1483,13 @@ const fx = {
 /* ---------------- screen fx ---------------- */
 const stage = $('#stage'), shakeL = $('#shake'), kisses = $('#kisses'), flash = $('#flash');
 let kissId = 0;
-const view = { sx: 400, sy: 418, z: 1, hx: 0, hy: 0, rot: 0, s: null };
-function camToScreen(x, y) { return [(view.sx + view.z * (x - 400) - VB.x0) * pxu, (view.sy + view.z * (y - 418) - VB.y0) * pxu]; }
+const view = { sx: 400, sy: 418, z: 1, hx: 0, hy: 0, rot: 0, s: null, wz: 1, Qx: 0, Qy: 0, Cx: 0, Cy: 0 };
+function camToScreen(x, y) {
+  if (view.wz !== 1) { x = view.Cx + view.wz * (x - view.Qx); y = view.Cy + view.wz * (y - view.Qy); }
+  return [(view.sx + view.z * (x - 400) - VB.x0) * pxu, (view.sy + view.z * (y - 418) - VB.y0) * pxu];
+}
+// full-body and "show the feet" framings: [centre x, centre y, height in world units]
+const FRAME_FULL = [400, 830, 1800], FRAME_FOOT = [400, 770, 1470];
 function headToScreen(x, y) {
   x = 400 + (x - 400) * HS; y = 470 + (y - 470) * HS;
   const a = view.rot * Math.PI / 180, c = Math.cos(a), sn = Math.sin(a);
@@ -1202,7 +1564,7 @@ const EVENTS = [
   [3.55, () => A.chime([74, 81, 86], .05)],
   [4.3, () => { if (A.C) A.whoosh(1.05); A.hbSet(92, .6); }],
   [5.14, () => { if (A.C) A.kiss(A.now + .24); }],
-  [5.38, () => { impact(); A.sparkle(1.2, 16, .03); }],
+  [5.38, () => { impact(); A.sparkle(1.2, 16, .03); kissCount++; }],
   [5.5, () => A.flap(.45)],
   [6.3, () => A.hbSet(66, .4)],
   [6.95, () => { A.chime([81, 86, 88, 93], .045); eyeSparkle('R'); bustKick(-60); }],
@@ -1235,13 +1597,19 @@ function compute() {
   s.sway += w * (Math.sin(T * .52) * .8 + Math.sin(T * 1.13 + 2) * .25);
   s.bodyY += w * 2.5 * Math.sin(T * 1.2 + .6);
   const ig = idleGaze(); s.gazeX = lerp(s.gazeX, ig[0], w); s.gazeY = lerp(s.gazeY, ig[1], w);
+  const apply = (g, lt) => { for (const k in g.tr) { const v = sample(g.tr[k], lt); if (k in DEF) s[k] *= v; else s[k] += v; } };
   if (gest) {
     const lt = T - gest.t0;
-    if (lt > gest.g.dur) gest = null;
+    if (lt > gest.g.dur) { const end = gest.g.end; gest = null; if (end) gestFx(end); }
     else {
-      for (const k in gest.g.tr) { const v = sample(gest.g.tr[k], lt); if (k in DEF) s[k] *= v; else s[k] += v; }
+      apply(gest.g, lt);
       for (const [ft, name] of gest.g.fx || []) if (lt >= ft && !gestFired[ft]) { gestFired[ft] = 1; gestFx(name); }
     }
+  }
+  if (react) {
+    let lt = T - react.t0;
+    if (earGrab && lt > react.g.hold) { react.t0 = T - react.g.hold; lt = react.g.hold; }
+    if (lt > react.g.dur) react = null; else apply(react.g, lt);
   }
   // blink
   const canBlink = seq > 2.6 && !(seq > 4.4 && seq < 7.9);
@@ -1254,17 +1622,33 @@ function compute() {
   lastState = s;
   return s;
 }
+function soleScreen() { const a = legEls.L.ankle || [338, 1330], b = legEls.R.ankle || [462, 1330]; return camToScreen((a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - 110); }
 function gestFx(name) {
+  if (name === 'zoomOut') { $('#caption').classList.remove('show'); A.harp(); if (A.C) A.whoosh(1.4, .14); return; }
+  if (name === 'tease') { say('Wanna see something cute~?', 2.4); return; }
+  if (name === 'lift') { A.swish(); bustKick(-50); skirtSp.vy -= 60; return; }
+  if (name === 'showFeet') { say('Like what you see~? ♥', 2.8); A.giggle(); const [x, y] = soleScreen(); fx.sparkles(x, y, 8, 60); return; }
+  if (name === 'boop') { A.boop(); const [x, y] = soleScreen(); fx.burst(x, y, 10, .6); shake = { t0: T, amp: 3 }; return; }
+  if (name === 'giggle') { A.giggle(); say('Hehe~ ♥', 1.8); return; }
+  if (name === 'land') { A.thump(); bustKick(-45); skirtSp.vy += 60; return; }
+  if (name === 'zoomIn') { if (A.C) A.whoosh(1.2, .12); return; }
+  if (name === 'feetDone') { kissCount = 0; feetAt = 2 + (Math.random() < .5 ? 1 : 0); nextAutoKiss = T + rand(5, 8); $('#caption').classList.add('show'); return; }
   if (name === 'wink') { A.chime([86, 93], .04); eyeSparkle('R'); bustKick(-45); }
   else if (name === 'flap') { A.flap(.55); bustKick(-90); }
   else if (name === 'shrug') { A.chime([81, 86], .03); bustKick(-30, 25); }
   else if (name === 'heart') blowHeart(.55);
 }
+function startGest(name) { gest = { g: GEST[name], t0: T, name }; gestFired = {}; lastGestName = name; }
+function autoKiss() { say(pick(KISS_LINES), 1.8); $('#caption').classList.remove('show'); jumpTo(3.6); nextAutoKiss = T + 6.4 + rand(7, 11); }
 function scheduleGestures() {
   if (seq < 11 || gest) return;
+  // after 2-3 kisses she pulls the camera back for the sofa / feet show
+  if (kissCount >= feetAt && !earGrab) { startGest('feet'); return; }
+  if (!nextAutoKiss) nextAutoKiss = T + rand(8, 12);
+  if (T >= nextAutoKiss && !earGrab) { autoKiss(); return; }
   if (!nextGest) nextGest = T + rand(2.5, 4);
   if (T >= nextGest) {
-    const names = Object.keys(GEST).filter(n => n !== lastGestName);
+    const names = Object.keys(GEST).filter(n => n !== lastGestName && n !== 'feet');
     const name = names[Math.floor(Math.random() * names.length)];
     gest = { g: GEST[name], t0: T }; gestFired = {}; lastGestName = name; nextGest = T + GEST[name].dur + rand(4.5, 8.5);
   }
@@ -1276,7 +1660,14 @@ function render(s, dt) {
   const z = s.zoom, k = clamp((z - 1) / Math.max(.01, zoomMax - 1)), Fx = 400, Fy = 418;
   const Cx = VB.x0 + VB.w / 2, Cy = VB.y0 + VB.h / 2;
   const sx = Fx + (Cx - Fx) * k, sy = Fy + (Cy + VB.h * .09 - Fy) * k;
-  cam.setAttribute('transform', `translate(${F(sx)} ${F(sy)}) scale(${(Math.round(z * 1000) / 1000)}) translate(${-Fx} ${-Fy})`);
+  const m = clamp(s.wide), fc = clamp(s.footCam);
+  const tH = Math.exp(lerp(Math.log(FRAME_FULL[2]), Math.log(FRAME_FOOT[2]), fc));
+  const wz = m > .0005 ? Math.exp(m * Math.log(VB.h / tH)) : 1;
+  const Qx = lerp(Cx, lerp(FRAME_FULL[0], FRAME_FOOT[0], fc), m), Qy = lerp(Cy, lerp(FRAME_FULL[1], FRAME_FOOT[1], fc), m);
+  cam.setAttribute('transform', `translate(${F(sx)} ${F(sy)}) scale(${(Math.round(z * 1000) / 1000)}) translate(${-Fx} ${-Fy})` +
+    (wz !== 1 ? ` translate(${F(Cx)} ${F(Cy)}) scale(${Math.round(wz * 10000) / 10000}) translate(${F(-Qx)} ${F(-Qy)})` : ''));
+  Object.assign(view, { wz, Qx, Qy, Cx, Cy });
+  const yBottom = wz !== 1 ? Qy + (VB.y0 + VB.h - Cy) / wz : VB.y0 + VB.h;
   const bz = Math.pow(z, -.55);
   bgL.setAttribute('transform', `translate(${Fx} ${Fy}) scale(${Math.round(bz * 1000) / 1000}) translate(${-Fx} ${-Fy})`);
   const st = T - shake.t0, sa = shake.amp * Math.exp(-st * 9);
@@ -1297,6 +1688,11 @@ function render(s, dt) {
   breathG.setAttribute('transform', `translate(0 ${F(by)}) rotate(${F(sway * 100) / 100} 400 1000) translate(400 1000) scale(${1 + .004 * br} ${1 + .009 * br}) translate(-400 -1000)`);
   stepBust(dt, by - br * 2.3, 258 * sr);
   if (wide) updBust();
+  if (wide && yBottom > 900) updSkirt(dt, clamp(s.leg));
+  const showLegs = wide && yBottom > 1110, showRoom = wide && yBottom > 700;
+  legsG.style.display = showLegs ? '' : 'none'; roomG.style.display = showRoom ? '' : 'none';
+  if (showLegs) updLegs(s.leg, clamp(s.toe), clamp(s.boop)); else soleG.style.display = 'none';
+  if (showRoom) updRoom();
 
   // wings + tail
   if (wide) {
@@ -1319,14 +1715,17 @@ function render(s, dt) {
   const wind = .5 * Math.sin(T * .31) + .3 * Math.sin(T * .77 + 1);
   updHair(T, (headSmooth - s.headRot) * .12, wind);
   const sw = Math.sin(T * 2.1) * 7 - (s.headRot - headSmooth) * 1.5;
-  ringL.setAttribute('transform', `rotate(${F(sw)} 300 370)`); ringR.setAttribute('transform', `rotate(${F(sw * .9 + 2)} 500 370)`);
+  updEars(dt);
+  ringL.setAttribute('transform', `rotate(${F(EARS.L.a)} 308 348) rotate(${F(sw)} 300 370)`); ringR.setAttribute('transform', `rotate(${F(EARS.R.a)} 492 348) rotate(${F(sw * .9 + 2)} 500 370)`);
+  if (bubble.classList.contains('show')) { placeBubble(); if (T - bubbleT > bubbleDur) bubble.classList.remove('show'); }
 }
 
 /* ---------------- main loop ---------------- */
-let emberAcc = 0, heartAcc = 0, glintAcc = 0;
+let emberAcc = 0, heartAcc = 0, glintAcc = 0, dbgG = null;
 function frame(now) {
   const dt = Math.min(.1, (now - last) / 1000); last = now; T += dt;
   if (playing) { const p = seq; seq += dt; runEvents(p, seq); }
+  if (dbgG && gest) gest.t0 = T - dbgG.gt;
   scheduleGestures();
   const s = compute();
   render(s, dt);
@@ -1346,22 +1745,48 @@ function start() {
   seq = 0; playing = true;
 }
 $('#intro').addEventListener('click', start);
-stage.addEventListener('click', () => {
-  if (!started) return;
+stage.addEventListener('click', e => {
+  if (!started || (e.target.closest && e.target.closest('.ear'))) return;
   A.init();
-  if (seq > 9.8) { $('#caption').classList.remove('show'); jumpTo(3.6); fx.sparkles(innerWidth / 2, innerHeight * .45, 6, 60); }
+  if (seq > 9.8 && !(gest && gest.name === 'feet')) { $('#caption').classList.remove('show'); jumpTo(3.6); fx.sparkles(innerWidth / 2, innerHeight * .45, 6, 60); }
 });
-addEventListener('pointermove', e => { mouse = { x: e.clientX, y: e.clientY, t: T }; });
+addEventListener('pointermove', e => {
+  mouse = { x: e.clientX, y: e.clientY, t: T };
+  if (earGrab) { earGrab.dx = e.clientX - earGrab.x0; earGrab.dy = e.clientY - earGrab.y0; earGrab.moved = Math.max(earGrab.moved, Math.hypot(earGrab.dx, earGrab.dy)); }
+});
+for (const k of ['L', 'R']) EARS[k].g.addEventListener('pointerdown', e => {
+  if (!started || seq < 3) return;
+  e.stopPropagation(); e.preventDefault();
+  A.init();
+  earGrab = { k, x0: e.clientX, y0: e.clientY, moved: 0 };
+  EARS[k].g.style.cursor = 'grabbing';
+  react = { g: REACT_EAR(k === 'L' ? -1 : 1), t0: T };
+  A.hum(); setTimeout(() => A.giggle(), 380);
+  const [x, y] = headToScreen(k === 'L' ? 262 : 538, 292);
+  fx.burst(x, y, 7, .45); fx.sparkles(x, y, 6, 22);
+  bustKick(-25);
+  say(pick(EAR_LINES), 2.6);
+});
+function endEarGrab() {
+  if (!earGrab) return;
+  const E = EARS[earGrab.k];
+  if (earGrab.moved < 8) E.va += (Math.random() < .5 ? -1 : 1) * 380; else E.va -= E.a * 5;
+  E.g.style.cursor = ''; earGrab = null;
+}
+addEventListener('pointerup', endEarGrab); addEventListener('pointercancel', endEarGrab);
 $('#btnSound').addEventListener('click', e => { e.stopPropagation(); A.init(); const on = A.toggle(); const b = e.currentTarget; b.querySelector('.w').style.display = on ? '' : 'none'; b.querySelector('.x').style.display = on ? 'none' : ''; });
-$('#btnReplay').addEventListener('click', e => { e.stopPropagation(); A.init(); $('#caption').classList.remove('show'); jumpTo(0); });
+$('#btnReplay').addEventListener('click', e => { e.stopPropagation(); A.init(); $('#caption').classList.remove('show'); kissCount = 0; nextAutoKiss = 0; react = null; jumpTo(0); });
 document.addEventListener('visibilitychange', () => { if (!A.C) return; if (document.hidden) A.C.suspend(); else A.C.resume(); });
 addEventListener('resize', layout);
 
+buildRoom(); buildLegs();
 preparePrints();
 layout();
-// deep link for previews: #t=5.4 freezes the timeline at that moment (no audio)
+// deep link for previews: #t=5.4 freezes the timeline at that moment (no audio); add &g=feet&gt=5 to freeze a gesture too
 const m = location.hash.match(/t=([\d.]+)/);
-if (m) { started = true; $('#intro').classList.add('gone'); const t = parseFloat(m[1]); seq = t; playing = false; render(compute(), 0); runEvents(-1, t); if (t >= 9.6) { $('#caption').classList.add('show'); $('#hud').classList.add('show'); } }
+const mg = location.hash.match(/g=(\w+)&gt=([\d.]+)/);
+if (mg) dbgG = { n: mg[1], gt: parseFloat(mg[2]) };
+if (m) { started = true; $('#intro').classList.add('gone'); const t = parseFloat(m[1]); seq = t; playing = false; if (dbgG) { startGest(dbgG.n); gest.t0 = T - dbgG.gt; } render(compute(), 0); runEvents(-1, t); if (t >= 9.6) { $('#caption').classList.add('show'); $('#hud').classList.add('show'); } }
 requestAnimationFrame(frame);
 })();
 </script>
