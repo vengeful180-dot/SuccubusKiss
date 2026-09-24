@@ -12,7 +12,7 @@ Open `index.html` in a browser, tap **Summon**, and turn your sound on.
 - **6.5–10 s:** She pulls back, winks, and blows a glowing heart at you.
 - **After 10 s:** She stays in an idle loop. She breathes and blinks, her hair and wings sway, and her eyes follow your cursor. Every few seconds she does a random gesture: a wink, a wing flap, a playful shimmy, a head tilt, a blown heart, or a glance away.
 - **Every so often:** She leans in for another kiss on her own.
-- **After 2–3 kisses:** The camera pulls back to show her sitting on a velvet sofa in a short dress, with candles around her. She lifts her bare feet toward the camera and wiggles her toes. Then the camera returns to the close-up and the loop starts again.
+- **After 2–3 kisses:** She puts her bare feet up toward the camera, and the camera pulls back to show her sitting on a velvet sofa in a short dress, leaning back on her hands, with candles around her. She holds that pose, wiggles her toes and gives the camera a couple of playful boops. Then the camera returns to the close-up and the loop starts again.
 
 Her bust and skirt are driven by small spring simulations, so they bounce and sway naturally when she moves, flaps her wings, or shimmies.
 

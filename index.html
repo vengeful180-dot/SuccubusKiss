@@ -178,10 +178,10 @@
       <linearGradient id="gSkirtUnder" x1="0" y1="1280" x2="0" y2="1460" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#6e0928"/><stop offset="1" stop-color="#c0194f"/>
       </linearGradient>
-      <linearGradient id="gArmL" x1="150" y1="0" x2="272" y2="0" gradientUnits="userSpaceOnUse">
+      <linearGradient id="gArmL" x1="132" y1="0" x2="240" y2="0" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#bf7f9a"/><stop offset=".35" stop-color="#ebc1ca"/><stop offset=".7" stop-color="#f3d0d4"/><stop offset="1" stop-color="#d9a2b6"/>
       </linearGradient>
-      <linearGradient id="gArmR" x1="650" y1="0" x2="528" y2="0" gradientUnits="userSpaceOnUse">
+      <linearGradient id="gArmR" x1="668" y1="0" x2="560" y2="0" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#bf7f9a"/><stop offset=".35" stop-color="#ebc1ca"/><stop offset=".7" stop-color="#f3d0d4"/><stop offset="1" stop-color="#d9a2b6"/>
       </linearGradient>
       <linearGradient id="gLeg" x1="0" y1="1200" x2="0" y2="2270" gradientUnits="userSpaceOnUse">
@@ -294,10 +294,11 @@
       <g id="legs"></g>
       <g id="breath">
         <g id="bodyG">
-          <path fill="url(#gArmL)" d="M 246 640 L 230 596 C 188 616, 168 666, 160 764 C 156 840, 158 900, 168 948 C 178 990, 210 1018, 250 1030 L 272 1000 C 242 985, 220 960, 214 925 C 210 870, 214 820, 222 790 C 226 750, 230 724, 236 704 Z"/>
-          <path fill="url(#gArmR)" d="M 554 640 L 570 596 C 612 616, 632 666, 640 764 C 644 840, 642 900, 632 948 C 622 990, 590 1018, 550 1030 L 528 1000 C 558 985, 580 960, 586 925 C 590 870, 586 820, 578 790 C 574 750, 570 724, 564 704 Z"/>
-          <path d="M 160 764 C 156 840, 158 900, 168 948 C 178 990, 210 1018, 250 1030 M 640 764 C 644 840, 642 900, 632 948 C 622 990, 590 1018, 550 1030" fill="none" stroke="#ff6fae" stroke-width="2.4" opacity=".3"/>
-          <path d="M 214 925 C 218 945, 226 958, 238 968 M 586 925 C 582 945, 574 958, 562 968" fill="none" stroke="#b77592" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+          <path fill="url(#gArmL)" d="M 246 640 L 230 596 C 188 616, 168 666, 160 764 C 155 850, 150 920, 146 960 C 142 1000, 140 1040, 138 1074 L 182 1078 C 184 1030, 190 980, 198 932 C 204 880, 212 830, 218 796 C 224 758, 230 724, 236 704 Z"/>
+          <path fill="url(#gArmR)" d="M 554 640 L 570 596 C 612 616, 632 666, 640 764 C 645 850, 650 920, 654 960 C 658 1000, 660 1040, 662 1074 L 618 1078 C 616 1030, 610 980, 602 932 C 596 880, 588 830, 582 796 C 576 758, 570 724, 564 704 Z"/>
+          <g id="hands"></g>
+          <path d="M 160 764 C 155 850, 150 920, 146 960 C 142 1000, 140 1040, 138 1074 M 640 764 C 645 850, 650 920, 654 960 C 658 1000, 660 1040, 662 1074" fill="none" stroke="#ff6fae" stroke-width="2.4" opacity=".3"/>
+          <path d="M 196 900 C 199 910, 204 916, 210 918 M 604 900 C 601 910, 596 916, 590 918" fill="none" stroke="#b77592" stroke-width="2" stroke-linecap="round" opacity=".5"/>
           <path id="bodySkin" fill="url(#gBody)" d="M 366 430 C 368 484, 366 510, 357 528 C 336 564, 274 576, 230 596 C 204 606, 192 626, 190 650 L 236 704 L 229 750 C 231 786, 243 812, 257 838 C 271 866, 279 900, 279 950 C 279 1010, 252 1060, 232 1104 L 568 1104 C 548 1060, 521 1010, 521 950 C 521 900, 529 866, 543 838 C 557 812, 569 786, 571 750 L 564 704 L 610 650 C 608 626, 596 606, 570 596 C 526 576, 464 564, 443 528 C 434 510, 432 484, 434 430 Z"/>
           <g clip-path="url(#cBody)">
             <ellipse cx="372" cy="495" rx="12" ry="50" fill="url(#gShade)" opacity=".45"/>
@@ -863,7 +864,7 @@ function updRoom() {
 const LEGKEYS = [[0, 41, 37], [.34, 54, 43], [.8, 30, 27], [1, 23, 21]];
 // shins only (knee -> calf -> ankle); the thighs point at the camera and are drawn as short rounded shapes
 const LEG_SIT = { L: [[350, 1222], [334, 1400], [308, 1580]], R: [[450, 1222], [420, 1406], [384, 1588]] };
-const LEG_UP = { L: [[350, 1222], [344, 1276], [338, 1330]], R: [[450, 1222], [456, 1276], [462, 1330]] };
+const LEG_UP = { L: [[350, 1222], [348, 1276], [346, 1330]], R: [[450, 1222], [452, 1276], [454, 1330]] };
 const THIGH_D = { L: 'M 258 1100 C 254 1172, 286 1248, 346 1252 C 394 1254, 402 1208, 400 1100 Z', R: 'M 542 1100 C 546 1172, 514 1248, 454 1252 C 406 1254, 398 1208, 400 1100 Z' };
 const SOLE_TOES = [[-36, -112, 36, 42, -8], [-2, -118, 24, 31, -2], [22, -112, 22, 27, 4], [43, -100, 20, 23, 12], [62, -84, 17, 19, 22]];
 const legEls = {};
@@ -925,6 +926,26 @@ function buildSole(parent, m) {
   });
   return { g: sg, toes };
 }
+function buildHands() {
+  const root = $('#hands');
+  // palm down on the cushion, fingers pointing forward (towards the camera) and a little outward
+  const FINGERS = [[-27, 38, 10.5, 27, 14], [-15, 42, 11.5, 34, 7], [-2, 44, 12, 37, 0], [11, 42, 11.5, 34, -6]];
+  for (const [wx, wy, m, rot] of [[160, 1066, 1, 8], [640, 1066, -1, -8]]) {
+    const g = el('g', { transform: `translate(${wx} ${wy}) rotate(${rot}) scale(${m * 1.22} 1.22)` }, root);
+    el('ellipse', { cx: -4, cy: 80, rx: 42, ry: 8, fill: 'url(#gShade)', opacity: .7 }, g);
+    const finger = (x, y, w, L, a, fill) => {
+      const f = el('g', { transform: `translate(${x} ${y}) rotate(${a})` }, g);
+      el('path', { d: `M ${-w / 2} 0 L ${-w / 2} ${L - w / 2} A ${w / 2} ${w / 2} 0 0 0 ${w / 2} ${L - w / 2} L ${w / 2} 0 Z`, fill, stroke: '#c07a93', 'stroke-width': 1, 'stroke-opacity': .7 }, f);
+      el('ellipse', { cx: 0, cy: F(L - w * .42), rx: F(w * .3), ry: F(w * .36), fill: '#b80d3c' }, f);
+      el('ellipse', { cx: F(-w * .1), cy: F(L - w * .52), rx: F(w * .1), ry: F(w * .12), fill: '#fff', opacity: .7 }, f);
+    };
+    for (const [x, y, w, L, a] of FINGERS) finger(x, y, w, L, a, '#f1c9cf');
+    el('path', { d: 'M -22 -2 C -27 14, -31 30, -33 44 C -20 50, 6 52, 20 48 C 22 34, 23 18, 22 -2 Z', fill: '#f3cfd4', stroke: '#c07a93', 'stroke-width': 1, 'stroke-opacity': .6 }, g);
+    el('path', { d: 'M -28 40 Q -21 45 -14 41 M -14 43 Q -8 47 -2 44 M -1 44 Q 5 48 11 44', fill: 'none', stroke: '#c07a93', 'stroke-width': 1.1, opacity: .45 }, g);
+    el('ellipse', { cx: -4, cy: 22, rx: 14, ry: 12, fill: 'url(#gSoftW)', opacity: .45 }, g);
+    finger(22, 14, 12, 34, -30, '#f3cfd4');
+  }
+}
 function buildLegs() {
   const g = $('#legs');
   for (const k of ['L', 'R']) {
@@ -947,6 +968,9 @@ function buildLegs() {
     el('path', { d: `M${X(328)} 1214 Q${X(348)} 1236 ${X(370)} 1214 M${X(336)} 1244 Q${X(348)} 1250 ${X(362)} 1244`, fill: 'none', stroke: '#c07a93', 'stroke-width': 1.5, 'stroke-linecap': 'round', opacity: .5 }, g);
   }
   el('path', { d: 'M 400 1120 C 401 1170, 401 1215, 400 1252', fill: 'none', stroke: '#a45c7e', 'stroke-width': 2, 'stroke-linecap': 'round', opacity: .55 }, g);
+  // her shins show through the little gap between the arches
+  legEls.soleBack = el('ellipse', { cx: 400, cy: 1296, rx: 54, ry: 78, fill: '#e2b0bf' }, $('#soleG'));
+  el('ellipse', { cx: 400, cy: 1300, rx: 20, ry: 70, fill: 'url(#gShade)', opacity: .8 }, $('#soleG'));
   // the soles face the camera: big toes on the inside, so the two feet mirror each other
   legEls.L.sole = buildSole($('#soleG'), -1);
   legEls.R.sole = buildSole($('#soleG'), 1);
@@ -966,11 +990,12 @@ function updLegs(l, toe, boop) {
       E.sole.g.style.display = e > .36 ? '' : 'none';
     }
     soleG.style.display = l > .3 ? '' : 'none';
+    legEls.soleBack.parentNode && legEls.soleBack.setAttribute('opacity', F(smooth(.6, .95, l) * 100) / 100);
   }
   if (l > .3) for (const k of ['L', 'R']) {
     const e = lift[k], E = legEls[k]; if (e <= .36) continue;
     const A = E.ankle, sc = lerp(.7, 1.3, smooth(.36, 1, e)) * (1 + .55 * boop), side = k === 'L' ? -1 : 1;
-    E.sole.g.setAttribute('transform', `translate(${F(A[0] + side * 4)} ${F(A[1] + 34 - 112 * sc)}) rotate(${F(side * (6 + 4 * Math.sin(T * 1.6 + side) * toe))}) scale(${F(sc * 1000) / 1000})`);
+    E.sole.g.setAttribute('transform', `translate(${F(A[0] + side * 4)} ${F(A[1] + 34 - 112 * sc)}) rotate(${F(side * (1.5 + 3 * Math.sin(T * 1.6 + side) * toe))}) scale(${F(sc * 1000) / 1000})`);
     E.sole.g.setAttribute('opacity', F(smooth(.36, .6, e) * 100) / 100);
     E.sole.toes.forEach((t, i) => {
       const c = toe * Math.max(0, Math.sin(T * 8.5 - i * .75 + (side > 0 ? 1.6 : 0))), [bx, by] = t.d;
@@ -1000,8 +1025,8 @@ function updSkirt(dt, lift) {
     return P;
   };
   const scal = (P, dy) => { let d = ''; for (let i = P.length - 1; i > 0; i--) { const a = P[i], b = P[i - 1]; d += `Q${P2([(a[0] + b[0]) / 2, Math.max(a[1], b[1]) + dy])} ${P2(b)}`; } return d; };
-  const H = hem(14, 1150, 252, 2.5), U = hem(28, 1166, 262, 2);
-  const side = (P, w) => [`M266,926 L534,926 C${P2([568 + w, 990])} ${P2([636 + w + sx * .5, 1080])} ${P2(P[P.length - 1])}`, `C${P2([164 - w + sx * .5, 1080])} ${P2([232 - w, 990])} 266,926 Z`];
+  const H = hem(14, 1150, 226, 2.5), U = hem(28, 1166, 234, 2);
+  const side = (P, w) => [`M276,936 L524,936 C${P2([540 + w, 976])} ${P2([606 + w + sx * .5, 1066])} ${P2(P[P.length - 1])}`, `C${P2([194 - w + sx * .5, 1066])} ${P2([260 - w, 976])} 276,936 Z`];
   const su = side(U, 6), so = side(H, 0), su2 = scal(U, 7), so2 = scal(H, 13);
   skirtEls.under.setAttribute('d', su[0] + su2 + su[1]);
   skirtEls.underLace.setAttribute('d', `M${P2(U[U.length - 1])}` + su2);
@@ -1009,7 +1034,7 @@ function updSkirt(dt, lift) {
   skirtEls.lace.setAttribute('d', `M${P2(H[H.length - 1])}` + so2);
   let fo = '', sh = '';
   for (let i = 1; i <= 6; i++) {
-    const x0 = lerp(284, 516, i / 7), h = H[i * 2], c = [(x0 + h[0]) / 2 + sx * .25, 1070];
+    const x0 = lerp(292, 508, i / 7), h = H[i * 2], c = [(x0 + h[0]) / 2 + sx * .25, 1066];
     fo += `M${F(x0)},962 Q${P2(c)} ${P2([h[0], h[1] + 4])}`;
     sh += `M${F(x0 + 9)},990 Q${P2([c[0] + 12, c[1]])} ${P2([h[0] + 14, h[1] - 10])}`;
   }
@@ -1144,20 +1169,21 @@ const GEST = {
   tilt:  { dur: 3.4, tr: { headRot: [[0, 0], [.8, 7], [2.5, 7], [3.4, 0]], smirk: [[0, 0], [.8, .6], [2.5, .6], [3.4, 0]], gazeX: [[0, 0], [.6, .22], [2.7, .22], [3.4, 0]], eyeMul: [[0, 1], [.8, .8], [2.5, .8], [3.4, 1]], browL: [[0, 0], [.8, .7], [2.5, .7], [3.4, 0]] } },
   heart: { dur: 2.1, tr: { pucker: [[0, 0], [.4, .85], [.9, .85], [1.3, 0]], open: [[0, 0], [.55, 0], [.62, .28, 'out'], [1.0, 0]], eyeMul: [[0, 1], [.3, .55], [1.2, .55], [1.6, 1]], smile: [[0, 0], [1.1, 0], [1.6, .4], [2.1, 0]] }, fx: [[.6, 'heart']] },
   shrug: { dur: 1.8, tr: { bodyY: [[0, 0], [.22, -9, 'out'], [.44, 0, 'in'], [.66, -6, 'out'], [.88, 0, 'in']], smile: [[0, 0], [.3, .5], [1.4, .5], [1.8, 0]], eyeMul: [[0, 1], [.3, .72], [1.4, .72], [1.8, 1]], headRot: [[0, 0], [.3, -3], [1.8, 0]], sway: [[0, 0], [.22, 1.2], [.66, -1], [1.2, 0]] }, fx: [[.05, 'shrug']] },
-  feet:  { dur: 13, tr: {
-    wide:    [[0, 0], [2.6, 1, 'io3'], [10.3, 1], [12.8, 0, 'io3']],
-    footCam: [[0, 0], [3.5, 0], [4.6, 1], [8.8, 1], [10.0, 0]],
-    leg:     [[0, 0], [3.6, 0], [4.35, 1, 'out'], [8.5, 1], [9.15, 0]],
-    toe:     [[0, 0], [4.4, 0], [4.7, 1], [8.1, 1], [8.4, 0]],
-    boop:    [[0, 0], [6.1, 0], [6.35, 1, 'out'], [6.75, 0]],
-    smile:   [[0, 0], [2.4, .45], [4.4, .8], [8.6, .8], [10.2, 0]],
-    smirk:   [[0, 0], [2.8, .4], [4.2, .2], [8.6, .3], [10.2, 0]],
-    eyeMul:  [[0, 1], [4.5, 1], [4.9, .72], [8.4, .72], [8.9, 1]],
-    blush:   [[0, 0], [4.4, .35], [9, .35], [10.4, 0]],
-    headRot: [[0, 0], [3.3, 7], [8.7, 7], [9.9, 0]],
-    bodyY:   [[0, 0], [3.55, 0], [3.72, 5, 'out'], [3.95, 0, 'in'], [8.95, 0], [9.12, 5, 'out'], [9.34, 0, 'in']],
-    gazeY:   [[0, 0], [4.4, 0], [4.8, .12], [8.6, .12], [9.2, 0]],
-  }, fx: [[.05, 'zoomOut'], [2.9, 'tease'], [3.6, 'lift'], [4.8, 'showFeet'], [6.15, 'boop'], [7.3, 'giggle'], [9.1, 'land'], [10.3, 'zoomIn']], end: 'feetDone' },
+  feet:  { dur: 14.2, tr: {
+    // legs come up while the camera is still on her face, and go down only after it's back
+    leg:     [[0, 0], [.2, 0], [1.3, 1], [12.7, 1], [13.6, 0]],
+    wide:    [[0, 0], [.3, 0], [2.9, 1, 'io3'], [10.2, 1], [12.6, 0, 'io3']],
+    footCam: [[0, 1]],
+    toe:     [[0, 0], [2.5, 0], [2.8, 1], [4.3, 1], [4.7, .35], [6.0, .35], [6.3, 1], [8.0, 1], [8.3, .4], [9.6, .4], [9.9, 0]],
+    boop:    [[0, 0], [5.3, 0], [5.55, 1, 'out'], [5.95, 0], [8.4, 0], [8.65, 1, 'out'], [9.05, 0]],
+    smile:   [[0, 0], [1.2, .45], [2.8, .8], [9.8, .8], [11.2, 0]],
+    smirk:   [[0, 0], [1.2, .35], [3.4, .2], [9.8, .3], [11.2, 0]],
+    eyeMul:  [[0, 1], [2.8, 1], [3.2, .72], [9.6, .72], [10.1, 1]],
+    blush:   [[0, 0], [2.6, .35], [10, .35], [11.4, 0]],
+    headRot: [[0, 0], [1.6, 6], [5.2, 6], [6.2, -4], [8.2, -4], [9.2, 5], [10, 5], [11, 0]],
+    bodyY:   [[0, 0], [.95, 0], [1.12, 4, 'out'], [1.34, 0, 'in']],
+    gazeY:   [[0, 0], [2.8, 0], [3.2, .12], [9.6, .12], [10.2, 0]],
+  }, fx: [[.05, 'zoomOut'], [.3, 'lift'], [2.9, 'showFeet'], [4.4, 'tease'], [5.3, 'boop'], [7.0, 'giggle'], [8.4, 'boop'], [9.4, 'tease2'], [10.3, 'zoomIn'], [13.5, 'land']], end: 'feetDone' },
   look:  { dur: 3.6, tr: { gazeX: [[0, 0], [.4, -.75], [1.7, -.75], [2.1, .1], [3.6, 0]], gazeY: [[0, 0], [.4, .25], [1.7, .25], [2.1, 0]], headRot: [[0, 0], [.6, -4], [1.9, -4], [2.5, 0]], smile: [[0, 0], [1.9, 0], [2.4, .5], [3.6, 0]] } },
 };
 
@@ -1625,12 +1651,13 @@ function compute() {
 function soleScreen() { const a = legEls.L.ankle || [338, 1330], b = legEls.R.ankle || [462, 1330]; return camToScreen((a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - 110); }
 function gestFx(name) {
   if (name === 'zoomOut') { $('#caption').classList.remove('show'); A.harp(); if (A.C) A.whoosh(1.4, .14); return; }
-  if (name === 'tease') { say('Wanna see something cute~?', 2.4); return; }
+  if (name === 'tease') { say(pick(['Come closer~ ♥', 'Cute, right~?', 'Don\'t stare too much~']), 2.4); return; }
+  if (name === 'tease2') { say(pick(['Hehe~ ♥', 'Our little secret~', 'Mmh~ ♥']), 2.2); return; }
   if (name === 'lift') { A.swish(); bustKick(-50); skirtSp.vy -= 60; return; }
   if (name === 'showFeet') { say('Like what you see~? ♥', 2.8); A.giggle(); const [x, y] = soleScreen(); fx.sparkles(x, y, 8, 60); return; }
   if (name === 'boop') { A.boop(); const [x, y] = soleScreen(); fx.burst(x, y, 10, .6); shake = { t0: T, amp: 3 }; return; }
   if (name === 'giggle') { A.giggle(); say('Hehe~ ♥', 1.8); return; }
-  if (name === 'land') { A.thump(); bustKick(-45); skirtSp.vy += 60; return; }
+  if (name === 'land') { bustKick(-30); return; }
   if (name === 'zoomIn') { if (A.C) A.whoosh(1.2, .12); return; }
   if (name === 'feetDone') { kissCount = 0; feetAt = 2 + (Math.random() < .5 ? 1 : 0); nextAutoKiss = T + rand(5, 8); $('#caption').classList.add('show'); return; }
   if (name === 'wink') { A.chime([86, 93], .04); eyeSparkle('R'); bustKick(-45); }
@@ -1691,7 +1718,7 @@ function render(s, dt) {
   if (wide && yBottom > 900) updSkirt(dt, clamp(s.leg));
   const showLegs = wide && yBottom > 1110, showRoom = wide && yBottom > 700;
   legsG.style.display = showLegs ? '' : 'none'; roomG.style.display = showRoom ? '' : 'none';
-  if (showLegs) updLegs(s.leg, clamp(s.toe), clamp(s.boop)); else soleG.style.display = 'none';
+  if (showLegs) updLegs(s.leg, clamp(s.toe), clamp(s.boop)); else { soleG.style.display = 'none'; legEls.last = -1; }
   if (showRoom) updRoom();
 
   // wings + tail
@@ -1779,7 +1806,7 @@ $('#btnReplay').addEventListener('click', e => { e.stopPropagation(); A.init(); 
 document.addEventListener('visibilitychange', () => { if (!A.C) return; if (document.hidden) A.C.suspend(); else A.C.resume(); });
 addEventListener('resize', layout);
 
-buildRoom(); buildLegs();
+buildRoom(); buildLegs(); buildHands();
 preparePrints();
 layout();
 // deep link for previews: #t=5.4 freezes the timeline at that moment (no audio); add &g=feet&gt=5 to freeze a gesture too
