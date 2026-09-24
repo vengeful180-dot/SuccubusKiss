@@ -178,15 +178,16 @@
       <linearGradient id="gSkirtUnder" x1="0" y1="1280" x2="0" y2="1460" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#6e0928"/><stop offset="1" stop-color="#c0194f"/>
       </linearGradient>
-      <linearGradient id="gArmL" x1="132" y1="0" x2="240" y2="0" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#bf7f9a"/><stop offset=".35" stop-color="#ebc1ca"/><stop offset=".7" stop-color="#f3d0d4"/><stop offset="1" stop-color="#d9a2b6"/>
+      <linearGradient id="gArmL" x1="134" y1="0" x2="246" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#c48ba3"/><stop offset=".3" stop-color="#eec6cd"/><stop offset=".62" stop-color="#f6d6d8"/><stop offset="1" stop-color="#ebc0ca"/>
       </linearGradient>
-      <linearGradient id="gArmR" x1="668" y1="0" x2="560" y2="0" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#bf7f9a"/><stop offset=".35" stop-color="#ebc1ca"/><stop offset=".7" stop-color="#f3d0d4"/><stop offset="1" stop-color="#d9a2b6"/>
+      <linearGradient id="gArmR" x1="666" y1="0" x2="554" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#c48ba3"/><stop offset=".3" stop-color="#eec6cd"/><stop offset=".62" stop-color="#f6d6d8"/><stop offset="1" stop-color="#ebc0ca"/>
       </linearGradient>
       <linearGradient id="gLeg" x1="0" y1="1200" x2="0" y2="2270" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#f4d0d4"/><stop offset=".55" stop-color="#f6d6d8"/><stop offset="1" stop-color="#eec3cb"/>
       </linearGradient>
+      <linearGradient id="gHand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#dcaabb"/><stop offset=".45" stop-color="#f3d0d5"/><stop offset="1" stop-color="#e9bfc9"/></linearGradient>
       <radialGradient id="gSolePad"><stop offset="0" stop-color="#f09aae" stop-opacity=".8"/><stop offset="1" stop-color="#f09aae" stop-opacity="0"/></radialGradient>
       <linearGradient id="gVelvet" x1="0" y1="1840" x2="0" y2="2250" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#8e1535"/><stop offset=".25" stop-color="#6a0d27"/><stop offset="1" stop-color="#3c0616"/>
@@ -294,12 +295,7 @@
       <g id="legs"></g>
       <g id="breath">
         <g id="bodyG">
-          <path fill="url(#gArmL)" d="M 246 640 L 230 596 C 188 616, 168 666, 160 764 C 155 850, 150 920, 146 960 C 142 1000, 140 1040, 138 1074 L 182 1078 C 184 1030, 190 980, 198 932 C 204 880, 212 830, 218 796 C 224 758, 230 724, 236 704 Z"/>
-          <path fill="url(#gArmR)" d="M 554 640 L 570 596 C 612 616, 632 666, 640 764 C 645 850, 650 920, 654 960 C 658 1000, 660 1040, 662 1074 L 618 1078 C 616 1030, 610 980, 602 932 C 596 880, 588 830, 582 796 C 576 758, 570 724, 564 704 Z"/>
-          <g id="hands"></g>
-          <path d="M 160 764 C 155 850, 150 920, 146 960 C 142 1000, 140 1040, 138 1074 M 640 764 C 645 850, 650 920, 654 960 C 658 1000, 660 1040, 662 1074" fill="none" stroke="#ff6fae" stroke-width="2.4" opacity=".3"/>
-          <path d="M 196 900 C 199 910, 204 916, 210 918 M 604 900 C 601 910, 596 916, 590 918" fill="none" stroke="#b77592" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-          <path id="bodySkin" fill="url(#gBody)" d="M 366 430 C 368 484, 366 510, 357 528 C 336 564, 274 576, 230 596 C 204 606, 192 626, 190 650 L 236 704 L 229 750 C 231 786, 243 812, 257 838 C 271 866, 279 900, 279 950 C 279 1010, 252 1060, 232 1104 L 568 1104 C 548 1060, 521 1010, 521 950 C 521 900, 529 866, 543 838 C 557 812, 569 786, 571 750 L 564 704 L 610 650 C 608 626, 596 606, 570 596 C 526 576, 464 564, 443 528 C 434 510, 432 484, 434 430 Z"/>
+          <path id="bodySkin" fill="url(#gBody)" d="M 366 430 C 368 484, 366 510, 357 528 C 336 564, 280 574, 244 590 C 228 626, 228 672, 236 704 L 229 750 C 231 786, 243 812, 257 838 C 271 866, 279 900, 279 950 C 279 1010, 252 1060, 232 1104 L 568 1104 C 548 1060, 521 1010, 521 950 C 521 900, 529 866, 543 838 C 557 812, 569 786, 571 750 L 564 704 C 572 672, 572 626, 556 590 C 520 574, 464 564, 443 528 C 434 510, 432 484, 434 430 Z"/>
           <g clip-path="url(#cBody)">
             <ellipse cx="372" cy="495" rx="12" ry="50" fill="url(#gShade)" opacity=".45"/>
             <ellipse cx="428" cy="495" rx="12" ry="50" fill="url(#gShade)" opacity=".3"/>
@@ -312,6 +308,19 @@
             <ellipse cx="400" cy="650" rx="120" ry="70" fill="url(#gSoftW)" opacity=".18"/>
             <path d="M 357 528 C 336 564, 274 576, 230 596 C 188 616, 168 666, 160 764 L 148 1000" fill="none" stroke="#ff6fae" stroke-width="3" opacity=".35"/>
             <path d="M 443 528 C 464 564, 526 576, 570 596 C 612 616, 632 666, 640 764 L 652 1000" fill="none" stroke="#ff6fae" stroke-width="3" opacity=".35"/>
+          </g>
+          <!-- arms: shoulders down to hands resting on the front edge of the seat -->
+          <g id="arms">
+            <path fill="url(#gArmL)" d="M 272 579 C 256 584, 246 588, 232 595 C 190 611, 166 660, 160 730 C 156 790, 156 842, 152 884 C 149 912, 146 934, 146 954 C 144 1004, 141 1054, 137 1104 L 179 1108 C 182 1058, 189 1004, 196 958 C 200 932, 204 908, 210 886 C 214 848, 217 808, 221 776 C 225 746, 230 722, 236 704 C 228 672, 228 628, 244 590 Z"/>
+            <path fill="url(#gArmR)" d="M 528 579 C 544 584 554 588 568 595 C 610 611 634 660 640 730 C 644 790 644 842 648 884 C 651 912 654 934 654 954 C 656 1004 659 1054 663 1104 L 621 1108 C 618 1058 611 1004 604 958 C 600 932 596 908 590 886 C 586 848 583 808 579 776 C 575 746 570 722 564 704 C 572 672 572 628 556 590 Z"/>
+            <ellipse cx="184" cy="800" rx="13" ry="86" fill="url(#gSoftW)" opacity=".35" transform="rotate(3 184 800)"/>
+            <ellipse cx="616" cy="800" rx="13" ry="86" fill="url(#gSoftW)" opacity=".3" transform="rotate(-3 616 800)"/>
+            <ellipse cx="168" cy="1020" rx="10" ry="66" fill="url(#gSoftW)" opacity=".3" transform="rotate(3 168 1020)"/>
+            <ellipse cx="632" cy="1020" rx="10" ry="66" fill="url(#gSoftW)" opacity=".25" transform="rotate(-3 632 1020)"/>
+            <path d="M 244 594 C 230 630, 229 672, 236 704 M 556 594 C 570 630, 571 672, 564 704" fill="none" stroke="#c98aa3" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>
+            <path d="M 232 595 C 190 611, 166 660, 160 730 C 156 790, 156 842, 152 884 C 149 912, 146 934, 146 954 C 144 1004, 141 1054, 137 1104 M 568 595 C 610 611 634 660 640 730 C 644 790 644 842 648 884 C 651 912 654 934 654 954 C 656 1004 659 1054 663 1104" fill="none" stroke="#ff6fae" stroke-width="2.4" opacity=".3"/>
+            <path d="M 200 902 C 204 911, 208 916, 214 918 M 600 902 C 596 911, 592 916, 586 918" fill="none" stroke="#b77592" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>
+            <g id="hands"></g>
           </g>
           <!-- short flared skirt (hem is animated) -->
           <path id="skirtUnder" fill="url(#gSkirtUnder)"/>
@@ -574,8 +583,8 @@ function buildHair() {
 
   // front locks
   const fl = $('#frontLocks');
-  strand(fl, [[[334, 222], [296, 248], [282, 300], [284, 360]], [[284, 360], [286, 430], [262, 500], [256, 580]], [[256, 580], [240, 660], [234, 740], [242, 836]]], { w0: 46, bulge: 10, amp: 7, hl: .35, n: 34, hr: [.08, .55], leaf: .7 });
-  strand(fl, [[[466, 222], [504, 248], [518, 300], [516, 360]], [[516, 360], [514, 430], [540, 500], [546, 580]], [[546, 580], [562, 660], [566, 740], [558, 840]]], { w0: 46, bulge: 10, amp: 7, hl: .35, n: 34, hr: [.08, .55], leaf: .7 });
+  strand(fl, [[[334, 222], [296, 248], [282, 300], [284, 360]], [[284, 360], [286, 430], [262, 500], [256, 580]], [[256, 580], [262, 660], [272, 740], [284, 836]]], { w0: 46, bulge: 10, amp: 7, hl: .35, n: 34, hr: [.08, .55], leaf: .7 });
+  strand(fl, [[[466, 222], [504, 248], [518, 300], [516, 360]], [[516, 360], [514, 430], [540, 500], [546, 580]], [[544, 580], [538, 660], [528, 740], [516, 840]]], { w0: 46, bulge: 10, amp: 7, hl: .35, n: 34, hr: [.08, .55], leaf: .7 });
   strand(fl, [[[326, 236], [300, 280], [292, 340], [300, 400]], [[300, 400], [308, 470], [290, 540], [298, 640]]], { w0: 26, bulge: 6, amp: 6, hl: .45, n: 26, hlc: '#d86aae', leaf: .8 });
   strand(fl, [[[474, 236], [500, 280], [508, 340], [500, 400]], [[500, 400], [492, 470], [512, 540], [504, 630]]], { w0: 26, bulge: 6, amp: 6, hl: .45, n: 26, hlc: '#d86aae', leaf: .8 });
   strand(fl, [[[322, 248], [304, 320], [312, 400], [334, 468]]], { w0: 9, amp: 3, hl: .35, n: 16, sw: .6 });
@@ -928,22 +937,25 @@ function buildSole(parent, m) {
 }
 function buildHands() {
   const root = $('#hands');
-  // palm down on the cushion, fingers pointing forward (towards the camera) and a little outward
-  const FINGERS = [[-27, 38, 10.5, 27, 14], [-15, 42, 11.5, 34, 7], [-2, 44, 12, 37, 0], [11, 42, 11.5, 34, -6]];
-  for (const [wx, wy, m, rot] of [[160, 1066, 1, 8], [640, 1066, -1, -8]]) {
-    const g = el('g', { transform: `translate(${wx} ${wy}) rotate(${rot}) scale(${m * 1.22} 1.22)` }, root);
-    el('ellipse', { cx: -4, cy: 80, rx: 42, ry: 8, fill: 'url(#gShade)', opacity: .7 }, g);
-    const finger = (x, y, w, L, a, fill) => {
+  // pinky (outer) -> index: [x, y, width, length, angle]
+  const FINGERS = [[-24, 34, 10, 26, 8], [-12, 37, 11, 32, 4], [1, 38, 11.5, 35, 0], [14, 36, 11, 31, -4]];
+  for (const [wx, wy, m, rot] of [[158, 1100, 1, 3], [642, 1100, -1, -3]]) {
+    const g = el('g', { transform: `translate(${wx} ${wy}) rotate(${rot}) scale(${m * 1.12} 1.12)` }, root);
+    el('ellipse', { cx: -4, cy: 74, rx: 34, ry: 6, fill: 'url(#gShade)', opacity: .6 }, g);
+    const finger = (x, y, w, L, a) => {
       const f = el('g', { transform: `translate(${x} ${y}) rotate(${a})` }, g);
-      el('path', { d: `M ${-w / 2} 0 L ${-w / 2} ${L - w / 2} A ${w / 2} ${w / 2} 0 0 0 ${w / 2} ${L - w / 2} L ${w / 2} 0 Z`, fill, stroke: '#c07a93', 'stroke-width': 1, 'stroke-opacity': .7 }, f);
-      el('ellipse', { cx: 0, cy: F(L - w * .42), rx: F(w * .3), ry: F(w * .36), fill: '#b80d3c' }, f);
-      el('ellipse', { cx: F(-w * .1), cy: F(L - w * .52), rx: F(w * .1), ry: F(w * .12), fill: '#fff', opacity: .7 }, f);
+      el('path', { d: `M ${-w / 2} -4 L ${-w / 2} ${L - w / 2} A ${w / 2} ${w / 2} 0 0 0 ${w / 2} ${L - w / 2} L ${w / 2} -4 Z`, fill: '#f0c8cf' }, f);
+      el('path', { d: `M ${-w / 2} 2 L ${-w / 2} ${L - w / 2} A ${w / 2} ${w / 2} 0 0 0 ${w / 2} ${L - w / 2} L ${w / 2} 2`, fill: 'none', stroke: '#c07a93', 'stroke-width': .9, opacity: .7 }, f);
+      el('ellipse', { cx: 0, cy: F(L - w * .44), rx: F(w * .31), ry: F(w * .38), fill: '#b80d3c' }, f);
+      el('ellipse', { cx: F(-w * .1), cy: F(L - w * .56), rx: F(w * .1), ry: F(w * .12), fill: '#fff', opacity: .7 }, f);
     };
-    for (const [x, y, w, L, a] of FINGERS) finger(x, y, w, L, a, '#f1c9cf');
-    el('path', { d: 'M -22 -2 C -27 14, -31 30, -33 44 C -20 50, 6 52, 20 48 C 22 34, 23 18, 22 -2 Z', fill: '#f3cfd4', stroke: '#c07a93', 'stroke-width': 1, 'stroke-opacity': .6 }, g);
-    el('path', { d: 'M -28 40 Q -21 45 -14 41 M -14 43 Q -8 47 -2 44 M -1 44 Q 5 48 11 44', fill: 'none', stroke: '#c07a93', 'stroke-width': 1.1, opacity: .45 }, g);
-    el('ellipse', { cx: -4, cy: 22, rx: 14, ry: 12, fill: 'url(#gSoftW)', opacity: .45 }, g);
-    finger(22, 14, 12, 34, -30, '#f3cfd4');
+    for (const d of FINGERS) finger(...d);
+    // back of the hand starts inside the wrist so it reads as one limb
+    el('path', { d: 'M -21 -18 L 21 -18 C 22 4, 25 20, 26 32 C 14 39, -16 41, -30 35 C -28 18, -25 2, -21 -18 Z', fill: 'url(#gHand)' }, g);
+    el('path', { d: 'M -24 6 C -26 20, -28 28, -30 35 M 24 18 C 25 24, 26 28, 26 32', fill: 'none', stroke: '#c07a93', 'stroke-width': 1, opacity: .5 }, g);
+    el('path', { d: 'M -27 36 Q -21 40 -15 37 M -15 39 Q -9 42 -3 39 M -2 40 Q 4 43 10 39 M 11 38 Q 16 40 21 36', fill: 'none', stroke: '#c07a93', 'stroke-width': 1, opacity: .45 }, g);
+    el('ellipse', { cx: -2, cy: 16, rx: 12, ry: 12, fill: 'url(#gSoftW)', opacity: .4 }, g);
+    finger(22, 12, 12, 28, -24);
   }
 }
 function buildLegs() {
