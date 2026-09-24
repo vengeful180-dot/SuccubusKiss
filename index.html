@@ -188,6 +188,7 @@
         <stop offset="0" stop-color="#f4d0d4"/><stop offset=".55" stop-color="#f6d6d8"/><stop offset="1" stop-color="#eec3cb"/>
       </linearGradient>
       <linearGradient id="gHand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#dcaabb"/><stop offset=".45" stop-color="#f3d0d5"/><stop offset="1" stop-color="#e9bfc9"/></linearGradient>
+      <linearGradient id="gTongue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c83a60"/><stop offset=".55" stop-color="#ec6f90"/><stop offset="1" stop-color="#f58aa6"/></linearGradient>
       <radialGradient id="gSolePad"><stop offset="0" stop-color="#f09aae" stop-opacity=".8"/><stop offset="1" stop-color="#f09aae" stop-opacity="0"/></radialGradient>
       <linearGradient id="gVelvet" x1="0" y1="1840" x2="0" y2="2250" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#8e1535"/><stop offset=".25" stop-color="#6a0d27"/><stop offset="1" stop-color="#3c0616"/>
@@ -719,14 +720,20 @@ function buildMouth() {
   mouthEls.shadow = el('ellipse', { rx: 17, ry: 5.5, fill: 'url(#gShade)', opacity: .6 }, g);
   mouthEls.inner = el('path', { fill: '#2a0410' }, g);
   mouthEls.lower = el('path', { fill: 'url(#gLipL)' }, g);
+  mouthEls.g1 = el('ellipse', { rx: 9, ry: 3, fill: 'url(#gSoftW)', opacity: .8 }, g);
+  mouthEls.tongueG = el('g', { style: 'display:none' }, g);
+  mouthEls.tongue = el('path', { fill: 'url(#gTongue)', stroke: '#9a2446', 'stroke-width': .8, 'stroke-opacity': .7 }, mouthEls.tongueG);
+  mouthEls.groove = el('path', { fill: 'none', stroke: '#a92c50', 'stroke-width': 1.1, 'stroke-linecap': 'round', opacity: .55 }, mouthEls.tongueG);
+  mouthEls.tongueHi = el('ellipse', { rx: 3.2, ry: 1.8, fill: '#fff', opacity: .45 }, mouthEls.tongueG);
   mouthEls.upper = el('path', { fill: 'url(#gLipU)' }, g);
   mouthEls.creases = el('path', { fill: 'none', stroke: '#6a0626', 'stroke-width': .7, 'stroke-linecap': 'round' }, g);
   mouthEls.line = el('path', { fill: 'none', stroke: '#48031a', 'stroke-width': 1.3, 'stroke-linecap': 'round' }, g);
-  mouthEls.g1 = el('ellipse', { rx: 9, ry: 3, fill: 'url(#gSoftW)', opacity: .8 }, g);
   mouthEls.g2 = el('ellipse', { rx: 4.5, ry: 1.7, fill: 'url(#gSoftW)', opacity: .55 }, g);
   mouthEls.outline = el('path', { fill: 'none', stroke: '#6d0a2a', 'stroke-width': .6, opacity: .5 }, g);
 }
 function updMouth(m) {
+  const tg = m.tongue || 0, tgx = m.tongueX || 0;
+  m.open = Math.max(m.open, .32 * tg);
   const def = (x, y, layer) => {
     const g = m.open * Math.max(0, 1 - (x / MW) ** 2);
     if (layer === 'lo') y += g * 8.5;
@@ -758,13 +765,21 @@ function updMouth(m) {
     if (Math.abs(x) < 12) c += `M${def(x, -1.2, 'ul')}L${def(x * 1.05, -7, 'ul')}`;
   }
   mouthEls.creases.setAttribute('d', c);
-  mouthEls.creases.setAttribute('opacity', F((.18 + .45 * m.pucker) * 100) / 100);
+  mouthEls.creases.setAttribute('opacity', F((.18 + .45 * m.pucker) * (1 - smooth(0, .15, tg)) * 100) / 100);
   const pos = s => s.split(',').map(Number);
   const g1 = pos(def(-2, 9, 'lo')), g2 = pos(def(-9, -5.5));
   mouthEls.g1.setAttribute('cx', g1[0]); mouthEls.g1.setAttribute('cy', g1[1]); mouthEls.g1.setAttribute('rx', F(9 * (1 - .3 * m.pucker)));
   mouthEls.g2.setAttribute('cx', g2[0]); mouthEls.g2.setAttribute('cy', g2[1]);
   const sh = pos(def(0, 22, 'lo'));
   mouthEls.shadow.setAttribute('cx', sh[0]); mouthEls.shadow.setAttribute('cy', sh[1]);
+  // tongue: base hidden behind the upper lip, tip slides out over the lower lip (tgx sweeps it corner to corner)
+  if (tg < .02) { mouthEls.tongueG.style.display = 'none'; return; }
+  mouthEls.tongueG.style.display = '';
+  const bx = MX, by = MY + 1 + m.open * 3, w = 8 + 3.5 * tg;
+  const tx = MX + tgx * 15 * (1 - .42 * m.pucker), ty = by + 5 + 14 * tg - Math.abs(tgx) * 3;
+  mouthEls.tongue.setAttribute('d', `M${P2([bx - w, by - 3])}C${P2([bx - w, by + 6])} ${P2([tx - w * .9, ty - 7])} ${P2([tx - w * .85, ty])}C${P2([tx - w * .8, ty + w * .95])} ${P2([tx + w * .8, ty + w * .95])} ${P2([tx + w * .85, ty])}C${P2([tx + w * .9, ty - 7])} ${P2([bx + w, by + 6])} ${P2([bx + w, by - 3])}Z`);
+  mouthEls.groove.setAttribute('d', `M${P2([bx, by + 2])}Q${P2([(bx + tx) / 2, (by + ty) / 2 + 2])} ${P2([tx, ty + w * .25])}`);
+  mouthEls.tongueHi.setAttribute('cx', F(tx - w * .35)); mouthEls.tongueHi.setAttribute('cy', F(ty + 1.5));
 }
 
 /* ---------------- wings & tail ---------------- */
@@ -1078,8 +1093,10 @@ function updEars(dt) {
 const bubble = $('#bubble');
 let bubbleT = -99, bubbleDur = 0;
 const pick = a => a[Math.floor(Math.random() * a.length)];
-const EAR_LINES = ['Mmh~ my ears are sensitive…', 'Hey~ that tickles ♥', 'Careful… I bite back~', 'Do that again… ♥', 'Naughty~ ♥', 'You like my ears? ♥', 'Ahn~ not the ears…'];
-const KISS_LINES = ['Come here~ ♥', 'One more kiss~', 'Closer… ♥'];
+const EAR_LINES = ['Keep touching me like that~', 'Ahh… you naughty thing~', 'You found my weak spot~ ♥', 'Mmh~ my ears are sensitive…', 'Hey~ that tickles ♥', 'Careful… I bite back~', 'Do that again… ♥', 'Naughty~ ♥', 'You like my ears? ♥', 'Ahn~ not the ears…'];
+const KISS_LINES = ['Come here~ ♥', 'One more kiss~', 'Closer… ♥', 'Kiss me harder~', 'I want to taste you~', 'Closer… I don\'t bite. Much~'];
+const NAUGHTY_LINES = ['Such dirty thoughts~ I can tell ♥', 'You can\'t stop staring, can you~?', 'You bad, bad thing… come here~', 'I could eat you up~ ♥', 'Want me to be naughty~?', 'Mmm… you look delicious~', 'I\'m thinking sinful things~', 'Say my name… slowly~', 'Don\'t make me come over there~', 'Be good for me~ ♥', 'I know what you want~'];
+const LICK_LINES = ['Mmm~ delicious ♥', 'Yummy~', 'Still tasting you~', 'Hungry~ ♥'];
 function say(text, dur = 2.6) { bubble.textContent = text; bubble.classList.add('show'); bubbleT = T; bubbleDur = dur; placeBubble(); }
 function placeBubble() {
   const [x, y] = headToScreen(548, 196);
@@ -1167,6 +1184,8 @@ const TL = {
   zoom:    [[0, 1], [3.0, 1], [4.3, 1.08], [5.4, ZM, 'lean'], [5.9, ZM2, 'lin'], [7.1, 1.03, 'io3'], [10, 1]],
   bodyY:   [[0, 16], [1.3, 16], [2.9, 0, 'in'], [3.12, -3, 'out'], [3.4, 0], [9.1, 0], [9.3, -8, 'out'], [9.5, 0, 'in'], [9.72, -5, 'out'], [9.95, 0, 'in']],
   sway:    [[0, 0]],
+  tongue:  [[0, 0], [9.12, 0], [9.32, .55, 'out'], [10.35, .55], [10.65, 0]],
+  tongueX: [[0, -1], [9.32, -1], [10.25, 1], [10.7, 0]],
   wide: [[0, 0]], footCam: [[0, 0]], leg: [[0, 0]], toe: [[0, 0]], boop: [[0, 0]],
   wingS:   [[0, 0], [1.35, 0], [2.5, 1, 'outBack']],
   wingSc:  [[0, .3], [1.35, .3], [2.2, 1, 'outBack']],
@@ -1196,7 +1215,12 @@ const GEST = {
     headRot: [[0, 0], [1.6, 6], [5.2, 6], [6.2, -4], [8.2, -4], [9.2, 5], [10, 5], [11, 0]],
     bodyY:   [[0, 0], [.95, 0], [1.12, 4, 'out'], [1.34, 0, 'in']],
     gazeY:   [[0, 0], [2.8, 0], [3.2, .12], [9.6, .12], [10.2, 0]],
-  }, fx: [[.05, 'zoomOut'], [.3, 'lift'], [2.9, 'showFeet'], [4.4, 'tease'], [5.3, 'boop'], [7.0, 'giggle'], [8.4, 'boop'], [9.4, 'tease2'], [10.3, 'zoomIn'], [13.5, 'land']], end: 'feetDone' },
+    tongue:  [[0, 0], [6.4, 0], [6.6, .55, 'out'], [7.5, .55], [7.8, 0]],
+    tongueX: [[0, 0], [6.4, -1], [7.45, 1], [7.9, 0]],
+  }, fx: [[.05, 'zoomOut'], [.3, 'lift'], [2.9, 'showFeet'], [4.4, 'tease'], [5.3, 'boop'], [6.6, 'lickQuiet'], [7.9, 'giggle'], [8.4, 'boop'], [9.4, 'tease2'], [10.3, 'zoomIn'], [13.5, 'land']], end: 'feetDone' },
+  lick:  { dur: 2.3, tr: { tongue: [[0, 0], [.25, .55, 'out'], [1.65, .55], [1.95, 0]], tongueX: [[0, -1], [.3, -1], [1.55, 1], [2.0, 0]], eyeMul: [[0, 1], [.3, .6], [1.9, .6], [2.3, 1]], smile: [[0, 0], [.3, .2], [2, .3], [2.3, 0]], headRot: [[0, 0], [.4, -3], [2.3, 0]], blush: [[0, 0], [.4, .25], [2.3, 0]] }, fx: [[.25, 'lick']] },
+  bleh:  { dur: 1.9, tr: { tongue: [[0, 0], [.2, 1, 'out'], [1.25, 1], [1.55, 0]], tongueX: [[0, 0], [.45, .22], [.75, -.22], [1.05, .18], [1.3, 0]], eyeRMul: [[0, 1], [.15, 0, 'in'], [1.3, 0], [1.55, 1, 'out']], smile: [[0, 0], [.2, .55], [1.5, .55], [1.9, 0]], browR: [[0, 0], [.15, -.7], [1.3, -.7], [1.55, 0]], headRot: [[0, 0], [.25, 5], [1.6, 0]] }, fx: [[.18, 'bleh']] },
+  purr:  { dur: 3.0, tr: { eyeMul: [[0, 1], [.4, .62], [2.4, .62], [3, 1]], smirk: [[0, 0], [.4, .55], [2.4, .55], [3, 0]], headRot: [[0, 0], [.5, -5], [2.4, -5], [3, 0]], browL: [[0, 0], [.4, .8], [2.4, .8], [3, 0]], blush: [[0, 0], [.5, .3], [2.4, .3], [3, 0]], gazeY: [[0, 0], [.4, .08], [2.4, .08], [3, 0]] }, fx: [[.3, 'purr']] },
   look:  { dur: 3.6, tr: { gazeX: [[0, 0], [.4, -.75], [1.7, -.75], [2.1, .1], [3.6, 0]], gazeY: [[0, 0], [.4, .25], [1.7, .25], [2.1, 0]], headRot: [[0, 0], [.6, -4], [1.9, -4], [2.5, 0]], smile: [[0, 0], [1.9, 0], [2.4, .5], [3.6, 0]] } },
 };
 
@@ -1408,6 +1432,16 @@ const A = {
       nz.connect(bp); bp.connect(ng); this.bus(ng, 1, .3);
     }
   },
+  slurp() {
+    if (!this.C) return; const t = this.now + .02, C = this.C;
+    const n = this.noise(t, .5), bp = this.filt('bandpass', 900, 2.5), trem = C.createGain(), lfo = this.osc('sine', 17, t, .5), lg = C.createGain(), g = C.createGain();
+    bp.frequency.linearRampToValueAtTime(2200, t + .35);
+    trem.gain.value = .7; lg.gain.value = .3; lfo.connect(lg); lg.connect(trem.gain);
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.13, t + .06); g.gain.setValueAtTime(.13, t + .3); g.gain.exponentialRampToValueAtTime(.0001, t + .45);
+    n.connect(bp); bp.connect(trem); trem.connect(g); this.bus(g, .9, .25);
+    const o = this.osc('sine', 1500, t + .42, .06), og = C.createGain(); o.frequency.exponentialRampToValueAtTime(500, t + .46);
+    this.env(og.gain, t + .42, .002, .12, 0, .035); o.connect(og); this.bus(og, 1, .2);
+  },
   swish() { if (!this.C) return; const t = this.now, n = this.noise(t, .4), bp = this.filt('bandpass', 600, 1.2), g = this.C.createGain(); bp.frequency.exponentialRampToValueAtTime(2600, t + .28); this.env(g.gain, t, .08, .18, 0, .22); n.connect(bp); bp.connect(g); this.bus(g, .9, .3); },
   boop() { if (!this.C) return; const t = this.now, o = this.osc('sine', 300, t, .25), g = this.C.createGain(); o.frequency.exponentialRampToValueAtTime(620, t + .09); this.env(g.gain, t, .005, .3, 0, .18); o.connect(g); this.bus(g, 1, .3); this.bell(t + .03, 88, .045); },
   harp() { if (!this.C) return; const t = this.now; [62, 65, 69, 72, 74, 77, 81, 86].forEach((m, i) => this.bell(t + i * .075, m, .045, .9)); },
@@ -1608,6 +1642,7 @@ const EVENTS = [
   [6.3, () => A.hbSet(66, .4)],
   [6.95, () => { A.chime([81, 86, 88, 93], .045); eyeSparkle('R'); bustKick(-60); }],
   [8.55, () => blowHeart(1)],
+  [9.3, () => A.slurp()],
   [9.6, () => { $('#caption').classList.add('show'); $('#hud').classList.add('show'); A.hbStop(); A.mel = true; }],
 ];
 function runEvents(t0, t1) { for (const [t, fn] of EVENTS) if (t > t0 && t <= t1 && !fired.has(t)) { fired.add(t); try { fn(); } catch (e) { console.error(e); } } }
@@ -1664,12 +1699,13 @@ function compute() {
 function soleScreen() { const a = legEls.L.ankle || [338, 1330], b = legEls.R.ankle || [462, 1330]; return camToScreen((a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - 110); }
 function gestFx(name) {
   if (name === 'zoomOut') { $('#caption').classList.remove('show'); A.harp(); if (A.C) A.whoosh(1.4, .14); return; }
-  if (name === 'tease') { say(pick(['Come closer~ ♥', 'Cute, right~?', 'Don\'t stare too much~']), 2.4); return; }
+  if (name === 'tease') { say(pick(['Come closer~ ♥', 'Cute, right~?', 'Don\'t stare too much~', 'Down here, darling~', 'You\'re blushing… good~']), 2.4); return; }
   if (name === 'tease2') { say(pick(['Hehe~ ♥', 'Our little secret~', 'Mmh~ ♥']), 2.2); return; }
   if (name === 'lift') { A.swish(); bustKick(-50); skirtSp.vy -= 60; return; }
   if (name === 'showFeet') { say('Like what you see~? ♥', 2.8); A.giggle(); const [x, y] = soleScreen(); fx.sparkles(x, y, 8, 60); return; }
   if (name === 'boop') { A.boop(); const [x, y] = soleScreen(); fx.burst(x, y, 10, .6); shake = { t0: T, amp: 3 }; return; }
-  if (name === 'giggle') { A.giggle(); say('Hehe~ ♥', 1.8); return; }
+  if (name === 'giggle') { A.giggle(); say(pick(['Hehe~ ♥', 'Kiss them~ ♥', 'Like my toes~?']), 1.8); return; }
+  if (name === 'lickQuiet') { A.slurp(); return; }
   if (name === 'land') { bustKick(-30); return; }
   if (name === 'zoomIn') { if (A.C) A.whoosh(1.2, .12); return; }
   if (name === 'feetDone') { kissCount = 0; feetAt = 2 + (Math.random() < .5 ? 1 : 0); nextAutoKiss = T + rand(5, 8); $('#caption').classList.add('show'); return; }
@@ -1677,6 +1713,9 @@ function gestFx(name) {
   else if (name === 'flap') { A.flap(.55); bustKick(-90); }
   else if (name === 'shrug') { A.chime([81, 86], .03); bustKick(-30, 25); }
   else if (name === 'heart') blowHeart(.55);
+  else if (name === 'lick') { A.slurp(); if (Math.random() < .65) say(pick(LICK_LINES), 2.2); }
+  else if (name === 'bleh') { A.giggle(); say(pick(['Bleh~ ♥', 'Hehe~ bleh~', 'Catch me if you can~']), 1.8); }
+  else if (name === 'purr') { A.hum(); say(pick(NAUGHTY_LINES), 2.8); }
 }
 function startGest(name) { gest = { g: GEST[name], t0: T, name }; gestFired = {}; lastGestName = name; }
 function autoKiss() { say(pick(KISS_LINES), 1.8); $('#caption').classList.remove('show'); jumpTo(3.6); nextAutoKiss = T + 6.4 + rand(7, 11); }
@@ -1690,7 +1729,7 @@ function scheduleGestures() {
   if (T >= nextGest) {
     const names = Object.keys(GEST).filter(n => n !== lastGestName && n !== 'feet');
     const name = names[Math.floor(Math.random() * names.length)];
-    gest = { g: GEST[name], t0: T }; gestFired = {}; lastGestName = name; nextGest = T + GEST[name].dur + rand(4.5, 8.5);
+    gest = { g: GEST[name], t0: T }; gestFired = {}; lastGestName = name; nextGest = T + GEST[name].dur + rand(3, 6);
   }
 }
 
@@ -1747,7 +1786,7 @@ function render(s, dt) {
 
   // face
   EYES.forEach(e => updEye(e, clamp(e.id === 'L' ? s.eyeL : s.eyeR), s.gazeX, s.gazeY, s.pupil, e.id === 'L' ? s.browL : s.browR));
-  updMouth({ smile: s.smile, smirk: s.smirk, pucker: clamp(s.pucker), open: clamp(s.open), press: clamp(s.press) });
+  updMouth({ smile: s.smile, smirk: s.smirk, pucker: clamp(s.pucker), open: clamp(s.open), press: clamp(s.press), tongue: clamp(s.tongue), tongueX: clamp(s.tongueX, -1, 1) });
   const bl = F(clamp(s.blush) * 100) / 100; blushL.setAttribute('opacity', bl); blushR.setAttribute('opacity', bl);
 
   // hair (lags behind head rotation)
