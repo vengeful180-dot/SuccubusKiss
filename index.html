@@ -311,8 +311,9 @@
           </g>
           <!-- arms: shoulders down to hands resting on the front edge of the seat -->
           <g id="arms">
-            <path fill="url(#gArmL)" d="M 272 579 C 256 584, 246 588, 232 595 C 190 611, 166 660, 160 730 C 156 790, 156 842, 152 884 C 149 912, 146 934, 146 954 C 144 1004, 141 1054, 137 1104 L 179 1108 C 182 1058, 189 1004, 196 958 C 200 932, 204 908, 210 886 C 214 848, 217 808, 221 776 C 225 746, 230 722, 236 704 C 228 672, 228 628, 244 590 Z"/>
-            <path fill="url(#gArmR)" d="M 528 579 C 544 584 554 588 568 595 C 610 611 634 660 640 730 C 644 790 644 842 648 884 C 651 912 654 934 654 954 C 656 1004 659 1054 663 1104 L 621 1108 C 618 1058 611 1004 604 958 C 600 932 596 908 590 886 C 586 848 583 808 579 776 C 575 746 570 722 564 704 C 572 672 572 628 556 590 Z"/>
+            <g id="fingers"></g>
+            <path fill="url(#gArmL)" d="M 272 579 C 256 584, 246 588, 232 595 C 190 611, 166 660, 160 730 C 156 790, 156 842, 152 884 C 149 912, 146 934, 146 954 C 144 1004, 141 1054, 138 1096 C 136 1114, 131 1132, 127 1146 C 142 1156, 170 1160, 192 1152 C 190 1136, 184 1118, 180 1100 C 183 1054, 189 1004, 196 958 C 200 932, 204 908, 210 886 C 214 848, 217 808, 221 776 C 225 746, 230 722, 236 704 C 228 672, 228 628, 244 590 Z"/>
+            <path fill="url(#gArmR)" d="M 528 579 C 544 584 554 588 568 595 C 610 611 634 660 640 730 C 644 790 644 842 648 884 C 651 912 654 934 654 954 C 656 1004 659 1054 662 1096 C 664 1114 669 1132 673 1146 C 658 1156 630 1160 608 1152 C 610 1136 616 1118 620 1100 C 617 1054 611 1004 604 958 C 600 932 596 908 590 886 C 586 848 583 808 579 776 C 575 746 570 722 564 704 C 572 672 572 628 556 590 Z"/>
             <ellipse cx="184" cy="800" rx="13" ry="86" fill="url(#gSoftW)" opacity=".35" transform="rotate(3 184 800)"/>
             <ellipse cx="616" cy="800" rx="13" ry="86" fill="url(#gSoftW)" opacity=".3" transform="rotate(-3 616 800)"/>
             <ellipse cx="168" cy="1020" rx="10" ry="66" fill="url(#gSoftW)" opacity=".3" transform="rotate(3 168 1020)"/>
@@ -936,26 +937,26 @@ function buildSole(parent, m) {
   return { g: sg, toes };
 }
 function buildHands() {
-  const root = $('#hands');
-  // pinky (outer) -> index: [x, y, width, length, angle]
-  const FINGERS = [[-24, 34, 10, 26, 8], [-12, 37, 11, 32, 4], [1, 38, 11.5, 35, 0], [14, 36, 11, 31, -4]];
-  for (const [wx, wy, m, rot] of [[158, 1100, 1, 3], [642, 1100, -1, -3]]) {
-    const g = el('g', { transform: `translate(${wx} ${wy}) rotate(${rot}) scale(${m * 1.12} 1.12)` }, root);
-    el('ellipse', { cx: -4, cy: 74, rx: 34, ry: 6, fill: 'url(#gShade)', opacity: .6 }, g);
-    const finger = (x, y, w, L, a) => {
-      const f = el('g', { transform: `translate(${x} ${y}) rotate(${a})` }, g);
-      el('path', { d: `M ${-w / 2} -4 L ${-w / 2} ${L - w / 2} A ${w / 2} ${w / 2} 0 0 0 ${w / 2} ${L - w / 2} L ${w / 2} -4 Z`, fill: '#f0c8cf' }, f);
-      el('path', { d: `M ${-w / 2} 2 L ${-w / 2} ${L - w / 2} A ${w / 2} ${w / 2} 0 0 0 ${w / 2} ${L - w / 2} L ${w / 2} 2`, fill: 'none', stroke: '#c07a93', 'stroke-width': .9, opacity: .7 }, f);
-      el('ellipse', { cx: 0, cy: F(L - w * .44), rx: F(w * .31), ry: F(w * .38), fill: '#b80d3c' }, f);
-      el('ellipse', { cx: F(-w * .1), cy: F(L - w * .56), rx: F(w * .1), ry: F(w * .12), fill: '#fff', opacity: .7 }, f);
-    };
-    for (const d of FINGERS) finger(...d);
-    // back of the hand starts inside the wrist so it reads as one limb
-    el('path', { d: 'M -21 -18 L 21 -18 C 22 4, 25 20, 26 32 C 14 39, -16 41, -30 35 C -28 18, -25 2, -21 -18 Z', fill: 'url(#gHand)' }, g);
-    el('path', { d: 'M -24 6 C -26 20, -28 28, -30 35 M 24 18 C 25 24, 26 28, 26 32', fill: 'none', stroke: '#c07a93', 'stroke-width': 1, opacity: .5 }, g);
-    el('path', { d: 'M -27 36 Q -21 40 -15 37 M -15 39 Q -9 42 -3 39 M -2 40 Q 4 43 10 39 M 11 38 Q 16 40 21 36', fill: 'none', stroke: '#c07a93', 'stroke-width': 1, opacity: .45 }, g);
-    el('ellipse', { cx: -2, cy: 16, rx: 12, ry: 12, fill: 'url(#gSoftW)', opacity: .4 }, g);
-    finger(22, 12, 12, 28, -24);
+  // fingers hang from the knuckles over the front edge of the cushion; the back of the hand is part of the arm path.
+  // Fingers are built in world units (no transform) so they share the arm's skin gradient and blend into the hand.
+  // [knuckle x, knuckle y, width, length, angle] pinky -> index, then the thumb, for the left hand
+  const FINGERS = [[134, 1146, 11, 28, 9], [148, 1151, 12, 34, 4], [163, 1154, 12.5, 37, 0], [178, 1152, 12, 33, -4], [187, 1124, 12.5, 30, -22]];
+  const rot = (x, y, a, px, py) => { const c = Math.cos(a * Math.PI / 180), sn = Math.sin(a * Math.PI / 180); return [x + px * c - py * sn, y + px * sn + py * c]; };
+  for (const m of [1, -1]) {
+    const tf = m < 0 ? 'translate(800 0) scale(-1 1)' : '';
+    const under = el('g', { transform: tf }, $('#fingers')), over = el('g', { transform: tf }, $('#hands'));
+    el('ellipse', { cx: 158, cy: 1194, rx: 36, ry: 6, fill: 'url(#gShade)', opacity: .6 }, under);
+    FINGERS.forEach(([x, y, w, L, a], i) => {
+      const r = w / 2, P = (px, py) => P2(rot(x, y, a, px, py));
+      const d = `M${P(-r, -14)} L${P(-r, L - r)} A${r} ${r} 0 0 0 ${P(r, L - r)} L${P(r, -14)} Z`;
+      // the thumb lies on top of the hand; the fingers tuck under it
+      el('path', { d, fill: 'url(#gArmL)', stroke: '#c07a93', 'stroke-width': .9, 'stroke-opacity': .65 }, i === 4 ? over : under);
+      const nc = rot(x, y, a, 0, L - w * .44), hc = rot(x, y, a, -w * .1, L - w * .56);
+      el('ellipse', { cx: F(nc[0]), cy: F(nc[1]), rx: F(w * .31), ry: F(w * .38), fill: '#b80d3c', transform: `rotate(${a} ${F(nc[0])} ${F(nc[1])})` }, over);
+      el('ellipse', { cx: F(hc[0]), cy: F(hc[1]), rx: F(w * .1), ry: F(w * .12), fill: '#fff', opacity: .7 }, over);
+    });
+    el('path', { d: 'M 129 1146 Q 135 1151 142 1149 M 143 1151 Q 149 1155 156 1153 M 158 1154 Q 164 1158 171 1155 M 173 1154 Q 179 1156 186 1152', fill: 'none', stroke: '#c07a93', 'stroke-width': 1, opacity: .5 }, over);
+    el('ellipse', { cx: 160, cy: 1124, rx: 12, ry: 14, fill: 'url(#gSoftW)', opacity: .35 }, over);
   }
 }
 function buildLegs() {
